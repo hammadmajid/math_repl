@@ -1,5 +1,15 @@
+#include <filesystem>
 #include <iostream>
 #include <tclap/CmdLine.h>
+
+bool is_file_valid(std::string &path) {
+  if (std::filesystem::exists(path)) {
+    return true;
+    // TODO: check if its a .tstar file
+  } else {
+    return false;
+  }
+}
 
 int main(int argc, char *argv[]) {
 
@@ -26,9 +36,14 @@ int main(int argc, char *argv[]) {
               << std::endl;
   }
 
-  std::cout << source_path << std::endl;
+  if (!is_file_valid(source_path)) {
+    std::cerr << "error: " << source_path << " is not a valid path"
+              << std::endl;
 
-  // TODO: validate that source_path is correct
+    exit(EXIT_FAILURE);
+  }
+
+  std::cout << source_path << std::endl;
 
   return EXIT_SUCCESS;
 }
