@@ -1,0 +1,16 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-I/home/hammad/i/tstar/include/tclap/include",
+      "-std=gnu++17",
+      "-c",
+      "-o",
+      "CMakeFiles/tstar.dir/src/main.cxx.o",
+      "/home/hammad/i/tstar/src/main.cxx"
+    ],
+    "directory": "/home/hammad/i/tstar/build",
+    "file": "/home/hammad/i/tstar/src/main.cxx",
+    "output": "/home/hammad/i/tstar/build/CMakeFiles/tstar.dir/src/main.cxx.o"
+  }
+]
