@@ -4,7 +4,5 @@ project(tstar)
 
 set(CMAKE_CXX_STANDARD 17)
 
-include_directories( BEFORE include/tclap/include )
-
 add_executable(tstar src/main.cxx)
 
