@@ -5,7 +5,7 @@
 bool is_file_valid(std::string &path) {
   if (std::filesystem::exists(path)) {
     return true;
-    // TODO: check if its a .tstar file
+    // TODO: check if its a .neon file
   } else {
     return false;
   }
@@ -18,13 +18,13 @@ int main(int argc, char *argv[]) {
   try {
     // add the command line object
     // describe the program and it's version
-    TCLAP::CmdLine cmd("Tstar: An experimental programming language", ' ',
+    TCLAP::CmdLine cmd("neon: An experimental programming language", ' ',
                        "0.1.0");
 
     // value argument to get path to source file
     TCLAP::ValueArg<std::string> source_arg("s", "source",
                                             "Path to source file", true,
-                                            "homer", "path/to/source.tstar");
+                                            "homer", "path/to/source.neon");
 
     cmd.add(source_arg);
     cmd.parse(argc, argv);
