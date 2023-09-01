@@ -1,16 +1,7 @@
 [
-  {
-    "arguments": [
-      "/usr/bin/c++",
-      "-I/home/hammad/i/tstar/include/tclap/include",
-      "-std=gnu++17",
-      "-c",
-      "-o",
-      "CMakeFiles/tstar.dir/src/main.cxx.o",
-      "/home/hammad/i/tstar/src/main.cxx"
-    ],
-    "directory": "/home/hammad/i/tstar/build",
-    "file": "/home/hammad/i/tstar/src/main.cxx",
-    "output": "/home/hammad/i/tstar/build/CMakeFiles/tstar.dir/src/main.cxx.o"
-  }
+{
+  "directory": "/home/hammad/code/hobby/cli/neon",
+  "command": "/usr/bin/c++    -o CMakeFiles/neon.dir/src/main.cxx.o -c /home/hammad/code/hobby/cli/neon/src/main.cxx",
+  "file": "/home/hammad/code/hobby/cli/neon/src/main.cxx"
+}
 ]
