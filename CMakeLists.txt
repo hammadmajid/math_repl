@@ -1,8 +1,10 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(tstar)
+project(neon)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 17)
 
-add_executable(tstar src/main.cxx)
+set(CMAKE_EXPORT_COMPILE_COMMANDS true)
+
+add_executable(neon src/main.cxx)
 
