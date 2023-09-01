@@ -16,4 +16,4 @@ _deps
 .cmake/
 
 # ignore build binary
-tstar
+neon
