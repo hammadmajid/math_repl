@@ -32,12 +32,21 @@ public:
     std::vector<Token> tokens;
 
     if (argc == 1) {
-      utils::exit_with_usage_guide("");
+      utils::exit_with_usage_guide("null");
     }
 
-    // TODO
+    std::vector<std::string> args;
+
+    for (int i = 1; i < argc; i++) {
+      args.push_back(argv[i]);
+    }
+
+    for (std::string arg : args) {
+      for (int i = 0; i < arg.length(); i++) {
+        // TODO
+      }
+    }
 
     return tokens;
   }
-
 };
