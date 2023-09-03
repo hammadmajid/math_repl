@@ -6,7 +6,7 @@
 #include <optional>
 #include <vector>
 
-#include "utils.h"
+#include "utils/utils.h"
 
 enum class TokenType {
   KIntLit,
