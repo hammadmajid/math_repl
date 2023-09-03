@@ -27,11 +27,11 @@ struct Token {
 
 class Tokenizer {
 public:
-  std::vector<Token> tokenize(int argc, const char *const *argv) {
+  std::vector<Token> TokenizeExpression(int argc, const char *const *argv) {
     std::vector<Token> tokens;
 
     if (argc == 1) {
-      utils::exit_with_usage_guide("null");
+      utils::PrintHelpAndDie("null");
     }
 
     std::vector<std::string> args;
@@ -76,18 +76,18 @@ public:
         } else if (arg.at(i) == ')') {
           tokens.push_back({.token_type = TokenType::KCloseParen});
         } else {
-          utils::exit_with_usage_guide(arg);
+          utils::PrintHelpAndDie(arg);
         }
       }
     }
 
-    debug_tokens(tokens);
+    DebugTokens(tokens);
 
     return tokens;
   }
 
   private:
-    void debug_tokens(std::vector<Token> tokens) {
+    void DebugTokens(std::vector<Token> tokens) {
       for (Token token : tokens) {
         if (token.token_type == TokenType::KIntLit) {
           std::cout << "int_lit = " << token.value.value() << std::endl;

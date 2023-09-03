@@ -3,7 +3,7 @@
 #include <iostream>
 
 namespace utils {
-inline void exit_with_usage_guide(std::string expr) {
+inline void PrintHelpAndDie(std::string expr) {
   std::cerr << "\"" << expr << "\" is not a valid expression\n\n"
             << "Usage:\n"
             << "\tneon [expression]\n\n"
