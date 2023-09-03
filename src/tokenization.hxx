@@ -83,33 +83,37 @@ public:
       }
     }
 
-    // * for debugging
-    for (Token token : tokens) {
-      if (token.token_type == TokenType::int_lit) {
-        std::cout << "int_lit = " << token.value.value() << std::endl;
-      } else if (token.token_type == TokenType::float_lit) {
-        std::cout << "float_lit = " << token.value.value() << std::endl;
-      } else if (token.token_type == TokenType::addition) {
-        std::cout << "+" << std::endl;
-      } else if (token.token_type == TokenType::substraction) {
-        std::cout << "=" << std::endl;
-      } else if (token.token_type == TokenType::multiplication) {
-        std::cout << "*" << std::endl;
-      } else if (token.token_type == TokenType::division) {
-        std::cout << "/" << std::endl;
-      } else if (token.token_type == TokenType::exponentiation) {
-        std::cout << "^" << std::endl;
-      } else if (token.token_type == TokenType::factorial) {
-        std::cout << "!" << std::endl;
-      } else if (token.token_type == TokenType::open_paren) {
-        std::cout << "(" << std::endl;
-      } else if (token.token_type == TokenType::close_paren) {
-        std::cout << ")" << std::endl;
-      } else {
-        std::cerr << "Invalid token" << std::endl;
-      }
-    }
+    debug_tokens(tokens);
 
     return tokens;
   }
+
+  private:
+    void debug_tokens(std::vector<Token> tokens) {
+      for (Token token : tokens) {
+        if (token.token_type == TokenType::int_lit) {
+          std::cout << "int_lit = " << token.value.value() << std::endl;
+        } else if (token.token_type == TokenType::float_lit) {
+          std::cout << "float_lit = " << token.value.value() << std::endl;
+        } else if (token.token_type == TokenType::addition) {
+          std::cout << "+" << std::endl;
+        } else if (token.token_type == TokenType::substraction) {
+          std::cout << "=" << std::endl;
+        } else if (token.token_type == TokenType::multiplication) {
+          std::cout << "*" << std::endl;
+        } else if (token.token_type == TokenType::division) {
+          std::cout << "/" << std::endl;
+        } else if (token.token_type == TokenType::exponentiation) {
+          std::cout << "^" << std::endl;
+        } else if (token.token_type == TokenType::factorial) {
+          std::cout << "!" << std::endl;
+        } else if (token.token_type == TokenType::open_paren) {
+          std::cout << "(" << std::endl;
+        } else if (token.token_type == TokenType::close_paren) {
+          std::cout << ")" << std::endl;
+        } else {
+          std::cerr << "Invalid token" << std::endl;
+        }
+      }
+    }
 };
