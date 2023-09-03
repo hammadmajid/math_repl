@@ -7,12 +7,14 @@ std::vector<Token> Tokenizer::TokenizeExpression(int argc, const char *const *ar
   
   Cmd cmd;
 
+  // Check if there are any command line arguments
   if (argc == 1) {
     cmd.ErrorWithHelpAndDie("Expected at least one expression but found non.");
   }
 
   std::vector<std::string> args;
 
+  // Copy command line arguments into a vector of strings
   for (int i = 1; i < argc; i++) {
     args.push_back(argv[i]);
   }
@@ -20,12 +22,13 @@ std::vector<Token> Tokenizer::TokenizeExpression(int argc, const char *const *ar
   for (std::string arg : args) {
     for (int i = 0; i < arg.length(); i++) {
       if (std::isspace(arg.at(i))) {
-        continue;
+        continue; // Skip whitespace characters
       } else if (std::isdigit(arg.at(i))) {
+        // Tokenize integer literals
         std::string buf;
         buf.push_back(arg.at(i));
 
-        int idx = i + 1; // next value in arg
+        int idx = i + 1; // Next value in arg
 
         while (std::isdigit(arg[idx])) {
           buf.push_back(arg.at(idx));
@@ -39,7 +42,7 @@ std::vector<Token> Tokenizer::TokenizeExpression(int argc, const char *const *ar
       } else if (arg.at(i) == '+') {
         tokens.push_back({.token_type = TokenType::KAddition});
       } else if (arg.at(i) == '-') {
-        tokens.push_back({.token_type = TokenType::KSubstraction});
+        tokens.push_back({.token_type = TokenType::KSubtraction});
       } else if (arg.at(i) == '*') {
         tokens.push_back({.token_type = TokenType::KMultiplication});
       } else if (arg.at(i) == '/') {
@@ -53,11 +56,13 @@ std::vector<Token> Tokenizer::TokenizeExpression(int argc, const char *const *ar
       } else if (arg.at(i) == ')') {
         tokens.push_back({.token_type = TokenType::KCloseParen});
       } else {
+        // Handle invalid characters in expressions
         cmd.ErrorWithHelpAndDie(arg + " is not a valid expression");
       }
     }
   }
 
+  // TODO: Call this function only if the `--debug` flag is passed as one of the arguments
   DebugTokens(tokens);
 
   return tokens;
@@ -71,7 +76,7 @@ void Tokenizer::DebugTokens(std::vector<Token> tokens) {
       std::cout << "float_lit = " << token.value.value() << std::endl;
     } else if (token.token_type == TokenType::KAddition) {
       std::cout << "+" << std::endl;
-    } else if (token.token_type == TokenType::KSubstraction) {
+    } else if (token.token_type == TokenType::KSubtraction) {
       std::cout << "=" << std::endl;
     } else if (token.token_type == TokenType::KMultiplication) {
       std::cout << "*" << std::endl;
