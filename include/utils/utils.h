@@ -1,5 +1,5 @@
-#ifndef UTILS_H_
-#define UTILS_H_
+#ifndef INCLUDE_UTILS_H_
+#define INCLUDE_UTILS_H_
 
 #include <iostream>
 
@@ -17,4 +17,4 @@ inline void PrintHelpAndDie(std::string expr) {
 }
 } // namespace utils
 
-#endif // UTILS_H_
+#endif // INCLUDE_UTILS_H_
