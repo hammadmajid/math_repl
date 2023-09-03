@@ -5,7 +5,7 @@
 #include <optional>
 #include <vector>
 
-#include "utils.hxx"
+#include "utils.h"
 
 enum class TokenType {
   int_lit,
