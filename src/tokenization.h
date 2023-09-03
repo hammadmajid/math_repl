@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SRC_TOKENIZATION_H_
+#define SRC_TOKENIZATION_H_
 
 #include <cctype>
 #include <iostream>
@@ -115,3 +116,5 @@ public:
       }
     }
 };
+
+#endif // SRC_TOKENIZATION_H_

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef UTILS_H_
+#define UTILS_H_
 
 #include <iostream>
 
@@ -15,3 +16,5 @@ inline void PrintHelpAndDie(std::string expr) {
   std::exit(EXIT_FAILURE);
 }
 } // namespace utils
+
+#endif // UTILS_H_
