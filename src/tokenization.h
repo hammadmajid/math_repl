@@ -8,18 +8,16 @@
 #include "utils.h"
 
 enum class TokenType {
-  int_lit,
-  float_lit,
-
-  addition,
-  division,
-  substraction,
-  multiplication,
-  exponentiation,
-  factorial,
-
-  open_paren,
-  close_paren,
+  KIntLit,
+  KFloatLit,
+  KAddition,
+  KDivision,
+  KSubstraction,
+  KMultiplication,
+  KExponentiation,
+  KFactorial,
+  KOpenParen,
+  KCloseParen,
 };
 
 struct Token {
@@ -58,25 +56,25 @@ public:
           }
 
           tokens.push_back({
-              .token_type = TokenType::int_lit,
+              .token_type = TokenType::KIntLit,
               .value = buf,
           });
         } else if (arg.at(i) == '+') {
-          tokens.push_back({.token_type = TokenType::addition});
+          tokens.push_back({.token_type = TokenType::KAddition});
         } else if (arg.at(i) == '-') {
-          tokens.push_back({.token_type = TokenType::substraction});
+          tokens.push_back({.token_type = TokenType::KSubstraction});
         } else if (arg.at(i) == '*') {
-          tokens.push_back({.token_type = TokenType::multiplication});
+          tokens.push_back({.token_type = TokenType::KMultiplication});
         } else if (arg.at(i) == '/') {
-          tokens.push_back({.token_type = TokenType::division});
+          tokens.push_back({.token_type = TokenType::KDivision});
         } else if (arg.at(i) == '!') {
-          tokens.push_back({.token_type = TokenType::factorial});
+          tokens.push_back({.token_type = TokenType::KFactorial});
         } else if (arg.at(i) == '^') {
-          tokens.push_back({.token_type = TokenType::exponentiation});
+          tokens.push_back({.token_type = TokenType::KExponentiation});
         } else if (arg.at(i) == '(') {
-          tokens.push_back({.token_type = TokenType::open_paren});
+          tokens.push_back({.token_type = TokenType::KOpenParen});
         } else if (arg.at(i) == ')') {
-          tokens.push_back({.token_type = TokenType::close_paren});
+          tokens.push_back({.token_type = TokenType::KCloseParen});
         } else {
           utils::exit_with_usage_guide(arg);
         }
@@ -91,25 +89,25 @@ public:
   private:
     void debug_tokens(std::vector<Token> tokens) {
       for (Token token : tokens) {
-        if (token.token_type == TokenType::int_lit) {
+        if (token.token_type == TokenType::KIntLit) {
           std::cout << "int_lit = " << token.value.value() << std::endl;
-        } else if (token.token_type == TokenType::float_lit) {
+        } else if (token.token_type == TokenType::KFloatLit) {
           std::cout << "float_lit = " << token.value.value() << std::endl;
-        } else if (token.token_type == TokenType::addition) {
+        } else if (token.token_type == TokenType::KAddition) {
           std::cout << "+" << std::endl;
-        } else if (token.token_type == TokenType::substraction) {
+        } else if (token.token_type == TokenType::KSubstraction) {
           std::cout << "=" << std::endl;
-        } else if (token.token_type == TokenType::multiplication) {
+        } else if (token.token_type == TokenType::KMultiplication) {
           std::cout << "*" << std::endl;
-        } else if (token.token_type == TokenType::division) {
+        } else if (token.token_type == TokenType::KDivision) {
           std::cout << "/" << std::endl;
-        } else if (token.token_type == TokenType::exponentiation) {
+        } else if (token.token_type == TokenType::KExponentiation) {
           std::cout << "^" << std::endl;
-        } else if (token.token_type == TokenType::factorial) {
+        } else if (token.token_type == TokenType::KFactorial) {
           std::cout << "!" << std::endl;
-        } else if (token.token_type == TokenType::open_paren) {
+        } else if (token.token_type == TokenType::KOpenParen) {
           std::cout << "(" << std::endl;
-        } else if (token.token_type == TokenType::close_paren) {
+        } else if (token.token_type == TokenType::KCloseParen) {
           std::cout << ")" << std::endl;
         } else {
           std::cerr << "Invalid token" << std::endl;
