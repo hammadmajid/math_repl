@@ -14,6 +14,7 @@ compile_commands.json
 CTestTestfile.cmake
 _deps
 .cmake/
+compile_commands.json
 
 # ignore build binary
 neon
