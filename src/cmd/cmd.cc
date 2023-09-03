@@ -1,6 +1,6 @@
-#include "utils/utils.h"
+#include "cmd/cmd.h"
 
-void Utils::PrintHelpAndDie(std::string expr) {
+void Cmd::PrintHelpAndDie(std::string expr) {
   std::cerr << "\"" << expr << "\" is not a valid expression\n\n"
             << "Usage:\n"
             << "\tneon [expression]\n\n"

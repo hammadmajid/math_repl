@@ -1,14 +1,14 @@
 #include <vector>
-#include "utils/utils.h"
+#include "cmd/cmd.h"
 #include "tokenization/tokenization.h"
 
 std::vector<Token> Tokenizer::TokenizeExpression(int argc, const char *const *argv) {
   std::vector<Token> tokens;
   
-  Utils utils;
+  Cmd cmd;
 
   if (argc == 1) {
-    utils.PrintHelpAndDie("null");
+    cmd.PrintHelpAndDie("null");
   }
 
   std::vector<std::string> args;
@@ -53,7 +53,7 @@ std::vector<Token> Tokenizer::TokenizeExpression(int argc, const char *const *ar
       } else if (arg.at(i) == ')') {
         tokens.push_back({.token_type = TokenType::KCloseParen});
       } else {
-        utils.PrintHelpAndDie(arg);
+        cmd.PrintHelpAndDie(arg);
       }
     }
   }

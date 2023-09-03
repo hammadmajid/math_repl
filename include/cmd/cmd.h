@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-class Utils {
+class Cmd {
   public:
     void PrintHelpAndDie(std::string expr);
 }; // namespace utils
