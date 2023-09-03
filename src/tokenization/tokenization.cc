@@ -8,7 +8,7 @@ std::vector<Token> Tokenizer::TokenizeExpression(int argc, const char *const *ar
   Cmd cmd;
 
   if (argc == 1) {
-    cmd.PrintHelpAndDie("null");
+    cmd.ErrorWithHelpAndDie("Expected at least one expression but found non.");
   }
 
   std::vector<std::string> args;
@@ -53,7 +53,7 @@ std::vector<Token> Tokenizer::TokenizeExpression(int argc, const char *const *ar
       } else if (arg.at(i) == ')') {
         tokens.push_back({.token_type = TokenType::KCloseParen});
       } else {
-        cmd.PrintHelpAndDie(arg);
+        cmd.ErrorWithHelpAndDie(arg + " is not a valid expression");
       }
     }
   }
