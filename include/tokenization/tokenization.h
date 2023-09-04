@@ -20,7 +20,8 @@ enum class TokenType {
   KCloseParen,     // Closing parenthesis ')'
 };
 
-// Struct representing a token, consisting of a token type and an optional value.
+// Struct representing a token, consisting of a token type and an optional
+// value.
 struct Token {
   TokenType token_type;
   std::optional<std::string> value{};
@@ -33,18 +34,20 @@ public:
    * Tokenizes the given command line arguments into a vector of Token objects.
    *
    * @param argc The number of command line arguments.
-   * @param argv An array of C-style strings containing the command line arguments.
+   * @param argv An array of C-style strings containing the command line
+   * arguments.
    * @return A vector of Token objects representing the parsed tokens.
    */
   std::vector<Token> TokenizeExpression(int argc, const char *const *argv);
 
-  private:
-    /**
-     * Debug function to print the tokenized tokens to the console for debugging purposes.
-     *
-     * @param tokens The vector of Token objects to be printed.
-     */
-    void DebugTokens(std::vector<Token> tokens);
+private:
+  /**
+   * Debug function to print the tokenized tokens to the console for debugging
+   * purposes.
+   *
+   * @param tokens The vector of Token objects to be printed.
+   */
+  void DebugTokens(std::vector<Token> tokens);
 }; // class Tokenizer
 
 #endif // INCLUDE_TOKENIZATION_H_

@@ -1,10 +1,11 @@
-#include <vector>
-#include "cmd/cmd.h"
 #include "tokenization/tokenization.h"
+#include "cmd/cmd.h"
+#include <vector>
 
-std::vector<Token> Tokenizer::TokenizeExpression(int argc, const char *const *argv) {
+std::vector<Token> Tokenizer::TokenizeExpression(int argc,
+                                                 const char *const *argv) {
   std::vector<Token> tokens;
-  
+
   Cmd cmd;
 
   // Check if there are any command line arguments
@@ -62,7 +63,8 @@ std::vector<Token> Tokenizer::TokenizeExpression(int argc, const char *const *ar
     }
   }
 
-  // TODO: Call this function only if the `--debug` flag is passed as one of the arguments
+  // TODO: Call this function only if the `--debug` flag is passed as one of the
+  // arguments
   DebugTokens(tokens);
 
   return tokens;
