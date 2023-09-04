@@ -33,12 +33,10 @@ public:
   /**
    * Tokenizes the given command line arguments into a vector of Token objects.
    *
-   * @param argc The number of command line arguments.
-   * @param argv An array of C-style strings containing the command line
-   * arguments.
+   * @param expr The math expression to tokenize
    * @return A vector of Token objects representing the parsed tokens.
    */
-  std::vector<Token> TokenizeExpression(int argc, const char *const *argv);
+  std::vector<Token> TokenizeExpression(std::string expr);
 
 private:
   /**

@@ -2,70 +2,55 @@
 #include "cmd/cmd.h"
 #include <vector>
 
-std::vector<Token> Tokenizer::TokenizeExpression(int argc,
-                                                 const char *const *argv) {
+std::vector<Token> Tokenizer::TokenizeExpression(std::string expr) {
   std::vector<Token> tokens;
 
   Cmd cmd;
 
-  // Check if there are any command line arguments
-  if (argc == 1) {
-    cmd.ErrorWithHelpAndDie("Expected at least one expression but found non.");
-  }
+  for (int i = 0; i < expr.length(); i++) {
+    if (std::isspace(expr.at(i))) {
+      continue; // Skip whitespace characters
+    } else if (std::isdigit(expr.at(i))) {
+      // Tokenize integer literals
+      std::string buf;
+      buf.push_back(expr.at(i));
 
-  std::vector<std::string> args;
+      int idx = i + 1; // Next value in expr
 
-  // Copy command line arguments into a vector of strings
-  for (int i = 1; i < argc; i++) {
-    args.push_back(argv[i]);
-  }
-
-  for (std::string arg : args) {
-    for (int i = 0; i < arg.length(); i++) {
-      if (std::isspace(arg.at(i))) {
-        continue; // Skip whitespace characters
-      } else if (std::isdigit(arg.at(i))) {
-        // Tokenize integer literals
-        std::string buf;
-        buf.push_back(arg.at(i));
-
-        int idx = i + 1; // Next value in arg
-
-        while (std::isdigit(arg[idx])) {
-          buf.push_back(arg.at(idx));
-          idx += 1;
-        }
-
-        tokens.push_back({
-            .token_type = TokenType::KIntLit,
-            .value = buf,
-        });
-      } else if (arg.at(i) == '+') {
-        tokens.push_back({.token_type = TokenType::KAddition});
-      } else if (arg.at(i) == '-') {
-        tokens.push_back({.token_type = TokenType::KSubtraction});
-      } else if (arg.at(i) == '*') {
-        tokens.push_back({.token_type = TokenType::KMultiplication});
-      } else if (arg.at(i) == '/') {
-        tokens.push_back({.token_type = TokenType::KDivision});
-      } else if (arg.at(i) == '!') {
-        tokens.push_back({.token_type = TokenType::KFactorial});
-      } else if (arg.at(i) == '^') {
-        tokens.push_back({.token_type = TokenType::KExponentiation});
-      } else if (arg.at(i) == '(') {
-        tokens.push_back({.token_type = TokenType::KOpenParen});
-      } else if (arg.at(i) == ')') {
-        tokens.push_back({.token_type = TokenType::KCloseParen});
-      } else {
-        // Handle invalid characters in expressions
-        cmd.ErrorWithHelpAndDie(arg + " is not a valid expression");
+      while (std::isdigit(expr[idx])) {
+        buf.push_back(expr.at(idx));
+        idx += 1;
       }
+
+      tokens.push_back({
+          .token_type = TokenType::KIntLit,
+          .value = buf,
+      });
+    } else if (expr.at(i) == '+') {
+      tokens.push_back({.token_type = TokenType::KAddition});
+    } else if (expr.at(i) == '-') {
+      tokens.push_back({.token_type = TokenType::KSubtraction});
+    } else if (expr.at(i) == '*') {
+      tokens.push_back({.token_type = TokenType::KMultiplication});
+    } else if (expr.at(i) == '/') {
+      tokens.push_back({.token_type = TokenType::KDivision});
+    } else if (expr.at(i) == '!') {
+      tokens.push_back({.token_type = TokenType::KFactorial});
+    } else if (expr.at(i) == '^') {
+      tokens.push_back({.token_type = TokenType::KExponentiation});
+    } else if (expr.at(i) == '(') {
+      tokens.push_back({.token_type = TokenType::KOpenParen});
+    } else if (expr.at(i) == ')') {
+      tokens.push_back({.token_type = TokenType::KCloseParen});
+    } else {
+      // Handle invalid characters in expressions
+      cmd.ErrorWithHelpAndDie(expr + " is not a valid expression");
     }
   }
 
-  // TODO: Call this function only if the `--debug` flag is passed as one of the
-  // arguments
-  DebugTokens(tokens);
+  if (g_debug_mode) {
+    DebugTokens(tokens);
+  }
 
   return tokens;
 }
