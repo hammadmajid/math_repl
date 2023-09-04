@@ -15,22 +15,33 @@ std::vector<Token> Tokenizer::TokenizeExpression(std::string expr) {
   for (int i = 0; i < expr.length(); i++) {
     if (std::isspace(expr.at(i))) {
       continue; // Skip whitespace characters
-    } else if (std::isdigit(expr.at(i))) {
-      // Tokenize integer literals
+    } else if (std::isdigit(expr.at(i)) || expr.at(i) == '.') {
+      // Tokenize numeric literals (both integers and floating-point numbers)
       std::string buf;
       buf.push_back(expr.at(i));
 
       int idx = i + 1; // Next value in expr
+      bool isFloatingPoint = false;
 
-      while (std::isdigit(expr[idx])) {
+      while (std::isdigit(expr[idx]) || (expr[idx] == '.' && !isFloatingPoint)) {
+        if (expr[idx] == '.') {
+          isFloatingPoint = true;
+        }
         buf.push_back(expr.at(idx));
         idx += 1;
       }
 
-      tokens.push_back({
-          .token_type = TokenType::KIntLit,
-          .value = buf,
-      });
+      if (isFloatingPoint) {
+        tokens.push_back({
+            .token_type = TokenType::KFloatLit,
+            .value = buf,
+        });
+      } else {
+        tokens.push_back({
+            .token_type = TokenType::KIntLit,
+            .value = buf,
+        });
+      }
 
       i = idx - 1;
     } else if (expr.at(i) == '+') {
