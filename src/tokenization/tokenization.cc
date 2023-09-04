@@ -31,6 +31,8 @@ std::vector<Token> Tokenizer::TokenizeExpression(std::string expr) {
           .token_type = TokenType::KIntLit,
           .value = buf,
       });
+
+      i = idx;
     } else if (expr.at(i) == '+') {
       tokens.push_back({.token_type = TokenType::KAddition});
     } else if (expr.at(i) == '-') {
