@@ -32,7 +32,7 @@ std::vector<Token> Tokenizer::TokenizeExpression(std::string expr) {
           .value = buf,
       });
 
-      i = idx;
+      i = idx - 1;
     } else if (expr.at(i) == '+') {
       tokens.push_back({.token_type = TokenType::KAddition});
     } else if (expr.at(i) == '-') {
