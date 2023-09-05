@@ -11,7 +11,7 @@ To get started, follow these simple steps:
 1. Clone the repository to your local machine:
 
    ```shell
-   git clone https://github.com/your-username/neon.git
+   git clone https://github.com/hammadmajid/neon.git
    ```
 
 2. Build the `neon` library:
