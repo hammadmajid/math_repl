@@ -1,4 +1,6 @@
-# neon - Math Expression Evaluator
+<h1><center>!! WORK IN PROGRESS !!</center></h1>
+
+## neon - Math Expression Evaluator
 
 ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg) [![CMake CI](https://github.com/hammadmajid/neon/actions/workflows/cmake-ci.yml/badge.svg)](https://github.com/hammadmajid/neon/actions/workflows/cmake-ci.yml)
 
