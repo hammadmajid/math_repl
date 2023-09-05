@@ -1,5 +1,5 @@
 # MIT License Copyright (c) 2023 Hammad Majid (hammadmajid@proton.me)
-# See the end file for full the license
+# See the end file for full the license information
 
 cmake_minimum_required(VERSION 3.20)
 

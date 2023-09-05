@@ -1,6 +1,6 @@
 /**
  * MIT License Copyright (c) 2023 Hammad Majid (hammadmajid@proton.me)
- * See the end file for full the license
+ * See the end file for full the license information
  */
 
 #include "tokenization/tokenization.h"
@@ -14,13 +14,13 @@ std::vector<Token> Tokenizer::TokenizeExpression(std::string expr) {
 
   for (int i = 0; i < expr.length(); i++) {
     if (std::isspace(expr.at(i))) {
-      continue; // Skip whitespace characters
+      continue; /* Skip whitespace characters */
     } else if (std::isdigit(expr.at(i)) || expr.at(i) == '.') {
-      // Tokenize numeric literals (both integers and floating-point numbers)
+      /* Tokenize numeric literals (both integers and floating-point numbers) */
       std::string buf;
       buf.push_back(expr.at(i));
 
-      int idx = i + 1; // Next value in expr
+      int idx = i + 1; /* Next value in expr */
       bool isFloatingPoint = false;
 
       while (std::isdigit(expr[idx]) ||
@@ -62,7 +62,6 @@ std::vector<Token> Tokenizer::TokenizeExpression(std::string expr) {
     } else if (expr.at(i) == ')') {
       tokens.push_back({.token_type = TokenType::KCloseParen});
     } else {
-      // Handle invalid characters in expressions
       cmd.ErrorWithHelpAndDie(expr + " is not a valid expression");
     }
   }

@@ -1,6 +1,6 @@
 /**
  * MIT License Copyright (c) 2023 Hammad Majid (hammadmajid@proton.me)
- * See the end file for full the license
+ * See the end file for full the license information
  */
 
 #ifndef INCLUDE_UTILS_H_
@@ -10,8 +10,10 @@
 #include <string.h>
 #include <vector>
 
-// The class provides some utilites to change the behaviour
-// of the program at runtime
+/**
+ * The class provides some utilites to change the behaviour
+ * of the program at runtime
+ */
 class Cmd {
 public:
   /** This function prints an error message to the standard

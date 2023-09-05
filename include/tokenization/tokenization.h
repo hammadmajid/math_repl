@@ -1,6 +1,6 @@
 /**
  * MIT License Copyright (c) 2023 Hammad Majid (hammadmajid@proton.me)
- * See the end file for full the license
+ * See the end file for full the license information
  */
 
 #ifndef INCLUDE_TOKENIZATION_H_
@@ -11,7 +11,9 @@
 #include <optional>
 #include <vector>
 
-// Enumeration defining various token types for expression parsing.
+/**
+ * Enumeration defining various token types for expression parsing.
+ */
 enum class TokenType {
   KIntLit,         // Integer literal
   KFloatLit,       // Floating-point literal
@@ -25,14 +27,18 @@ enum class TokenType {
   KCloseParen,     // Closing parenthesis ')'
 };
 
-// Struct representing a token, consisting of a token type and an optional
-// value.
+/**
+ * Struct representing a token, consisting of a token type and an optional
+ * value.
+ */
 struct Token {
   TokenType token_type;
   std::optional<std::string> value{};
 };
 
-// Class for tokenizing expressions provided as command line arguments.
+/**
+ * Class for tokenizing expressions provided as command line arguments.
+ */
 class Tokenizer {
 public:
   /**
