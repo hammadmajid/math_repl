@@ -1,4 +1,6 @@
-# neon - Math Expression Evaluator
+<h1><center>!! WORK IN PROGRESS !!</center></h1>
+
+## neon - Math Expression Evaluator
 
 ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg) [![CMake CI](https://github.com/hammadmajid/neon/actions/workflows/cmake-ci.yml/badge.svg)](https://github.com/hammadmajid/neon/actions/workflows/cmake-ci.yml)
 
@@ -11,7 +13,7 @@ To get started, follow these simple steps:
 1. Clone the repository to your local machine:
 
    ```shell
-   git clone https://github.com/your-username/neon.git
+   git clone https://github.com/hammadmajid/neon.git
    ```
 
 2. Build the `neon` library:
