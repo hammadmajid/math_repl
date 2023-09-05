@@ -23,7 +23,8 @@ std::vector<Token> Tokenizer::TokenizeExpression(std::string expr) {
       int idx = i + 1; // Next value in expr
       bool isFloatingPoint = false;
 
-      while (std::isdigit(expr[idx]) || (expr[idx] == '.' && !isFloatingPoint)) {
+      while (std::isdigit(expr[idx]) ||
+             (expr[idx] == '.' && !isFloatingPoint)) {
         if (expr[idx] == '.') {
           isFloatingPoint = true;
         }
