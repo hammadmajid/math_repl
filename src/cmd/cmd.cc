@@ -23,7 +23,7 @@ void Cmd::ErrorWithHelpAndDie(std::string err_msg) {
 
 std::string Cmd::ParseArgvForExprAndSetFlags(int argc,
                                              const char *const *argv) {
-  if (argc == 1 || argc > 4) {
+  if (argc == 1 || argc > 5) {
     ErrorWithHelpAndDie("Couldn't process arguments");
   }
 
@@ -36,6 +36,8 @@ std::string Cmd::ParseArgvForExprAndSetFlags(int argc,
       std::exit(EXIT_SUCCESS);
     } else if (strcmp(argv[i], "--debug") == 0) {
       g_debug_mode = true;
+    } else if (strcmp(argv[i], "--help") == 0) {
+      ErrorWithHelpAndDie("neon: a simple math expression evaulator");
     } else {
       expr = argv[i];
     }
