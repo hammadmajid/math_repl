@@ -3,25 +3,19 @@
 
 cmake_minimum_required(VERSION 3.20)
 
-project(neon)
-
-set(PROJECT_NAME "neon")
-set(PROJECT_VERSION "0.1.0-pre-release")
+project(neon VERSION 0.1.0 LANGUAGES CXX)
+set(PROJECT_DESCRIPTION "A simple math expression evaluator written in C++.")
 set(PROJECT_LICENSE "MIT License")
 set(PROJECT_HOMEPAGE_URL "https://github.com/hammadmajid/neon")
-set(PROJECT_DESCRIPTION "A simple math expression evaluator written in C++.")
 
-message(STATUS "Project: ${PROJECT_NAME}")
-message(STATUS "Version: ${PROJECT_VERSION}")
-message(STATUS "License: ${PROJECT_LICENSE}")
-message(STATUS "Homepage: ${PROJECT_HOMEPAGE_URL}")
-message(STATUS "Description: ${PROJECT_DESCRIPTION}")
-
+# Set C++ standard and compile commands export
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_EXPORT_COMPILE_COMMANDS true)
 
+# Include directories
 include_directories(include)
 
+# Include external dependencies using FetchContent
 include(FetchContent)
 
 FetchContent_Declare(
@@ -29,26 +23,42 @@ FetchContent_Declare(
   URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
 )
 
+# Ensure GoogleTest uses a shared CRT
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
+# Enable testing
 enable_testing()
 
-add_executable(
-  tests
-  src/tokenization/tokenization.cc src/cmd/cmd.cc
+# Define the main executable
+add_executable(neon
+  src/main.cc
+  src/tokenization/tokenization.cc
+  src/cmd/cmd.cc
+)
+
+# Define the test executable and link against GoogleTest
+add_executable(tests
+  src/tokenization/tokenization.cc
+  src/cmd/cmd.cc
   test/tokenization/tokenization_test.cc
 )
 
-target_link_libraries(
-  tests
+target_link_libraries(tests
   GTest::gtest_main
 )
 
+# Use GoogleTest to discover tests
 include(GoogleTest)
 gtest_discover_tests(tests)
 
-add_executable(neon src/main.cc src/tokenization/tokenization.cc src/cmd/cmd.cc)
+# Display project information
+message(STATUS "Project: ${PROJECT_NAME}")
+message(STATUS "Version: ${PROJECT_VERSION}")
+message(STATUS "License: ${PROJECT_LICENSE}")
+message(STATUS "Homepage: ${PROJECT_HOMEPAGE_URL}")
+message(STATUS "Description: ${PROJECT_DESCRIPTION}")
+
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
