@@ -36,7 +36,7 @@ enable_testing()
 
 add_executable(
   tests
-  src/main.cc src/tokenization/tokenization.cc src/cmd/cmd.cc
+  src/tokenization/tokenization.cc src/cmd/cmd.cc
   test/tokenization/tokenization_test.cc
 )
 
