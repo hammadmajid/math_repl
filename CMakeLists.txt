@@ -22,6 +22,32 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS true)
 
 include_directories(include)
 
+include(FetchContent)
+
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
+)
+
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+
+enable_testing()
+
+add_executable(
+  tests
+  src/main.cc src/tokenization/tokenization.cc src/cmd/cmd.cc
+  test/tokenization/tokenization_test.cc
+)
+
+target_link_libraries(
+  tests
+  GTest::gtest_main
+)
+
+include(GoogleTest)
+gtest_discover_tests(tests)
+
 add_executable(neon src/main.cc src/tokenization/tokenization.cc src/cmd/cmd.cc)
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
