@@ -66,39 +66,7 @@ std::vector<Token> Tokenizer::TokenizeExpression(std::string expr) {
     }
   }
 
-  if (g_debug_mode) {
-    DebugTokens(tokens);
-  }
-
   return tokens;
-}
-
-void Tokenizer::DebugTokens(std::vector<Token> tokens) {
-  for (Token token : tokens) {
-    if (token.token_type == TokenType::KIntLit) {
-      std::cout << "int_lit = " << token.value.value() << std::endl;
-    } else if (token.token_type == TokenType::KFloatLit) {
-      std::cout << "float_lit = " << token.value.value() << std::endl;
-    } else if (token.token_type == TokenType::KAddition) {
-      std::cout << "+" << std::endl;
-    } else if (token.token_type == TokenType::KSubtraction) {
-      std::cout << "=" << std::endl;
-    } else if (token.token_type == TokenType::KMultiplication) {
-      std::cout << "*" << std::endl;
-    } else if (token.token_type == TokenType::KDivision) {
-      std::cout << "/" << std::endl;
-    } else if (token.token_type == TokenType::KExponentiation) {
-      std::cout << "^" << std::endl;
-    } else if (token.token_type == TokenType::KFactorial) {
-      std::cout << "!" << std::endl;
-    } else if (token.token_type == TokenType::KOpenParen) {
-      std::cout << "(" << std::endl;
-    } else if (token.token_type == TokenType::KCloseParen) {
-      std::cout << ")" << std::endl;
-    } else {
-      std::cerr << "Invalid token" << std::endl;
-    }
-  }
 }
 
 /**

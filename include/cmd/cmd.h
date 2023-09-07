@@ -49,12 +49,6 @@ public:
   CmdInput ParseArgvForExprAndSetFlags(int argc, const char *const *argv);
 }; // class Cmd
 
-/**
- * When true, the program will print additional information at every step for
- * debugging. Will be set to true if "--debug" flag is passed as argument
- */
-extern bool g_debug_mode;
-
 #endif // INCLUDE_CMD_H_
 
 /**

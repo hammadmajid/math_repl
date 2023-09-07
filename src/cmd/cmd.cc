@@ -5,8 +5,6 @@
 
 #include "cmd/cmd.h"
 
-bool g_debug_mode = false;
-
 void CmdLine::ErrorWithHelpAndDie(std::string err_msg) {
   std::cerr << err_msg << std::endl;
 

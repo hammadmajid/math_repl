@@ -48,15 +48,6 @@ public:
    * @return A vector of Token objects representing the parsed tokens.
    */
   std::vector<Token> TokenizeExpression(std::string expr);
-
-private:
-  /**
-   * Debug function to print the tokenized tokens to the console for debugging
-   * purposes.
-   *
-   * @param tokens The vector of Token objects to be printed.
-   */
-  void DebugTokens(std::vector<Token> tokens);
 }; // class Tokenizer
 
 #endif // INCLUDE_TOKENIZATION_H_
