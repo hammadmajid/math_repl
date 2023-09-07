@@ -7,14 +7,29 @@
 #define INCLUDE_UTILS_H_
 
 #include <iostream>
+#include <optional>
 #include <string.h>
+#include <variant>
 #include <vector>
+
+enum class CmdFlag {
+  VersionFlag,
+  HelpFlag,
+};
+
+struct CmdError {
+  std::string err_msg;
+};
+
+struct CmdInput {
+  std::variant<std::string, CmdError, CmdFlag> input;
+};
 
 /**
  * The class provides some utilites to change the behaviour
  * of the program at runtime
  */
-class Cmd {
+class CmdLine {
 public:
   /** This function prints an error message to the standard
    * error stream, followed by the program's usage message,
@@ -28,9 +43,10 @@ public:
    * name.
    * @param argv An array of C-style strings representing the command-line
    * arguments.
-   * @return A string containing the math expression
+   * @return CmdInput which contains a variant of either std::string, CmdError,
+   * CmdFlag
    */
-  std::string ParseArgvForExprAndSetFlags(int argc, const char *const *argv);
+  CmdInput ParseArgvForExprAndSetFlags(int argc, const char *const *argv);
 }; // class Cmd
 
 /**
@@ -39,7 +55,7 @@ public:
  */
 extern bool g_debug_mode;
 
-#endif // INCLUDE_UTILS_H_
+#endif // INCLUDE_CMD_H_
 
 /**
 * Permission is hereby granted, free of charge, to any person obtaining a copy
