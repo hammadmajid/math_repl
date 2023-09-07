@@ -9,6 +9,7 @@
 #include <cctype>
 #include <iostream>
 #include <optional>
+#include <variant>
 #include <vector>
 
 /**
@@ -36,6 +37,18 @@ struct Token {
   std::optional<std::string> value{};
 };
 
+struct TokenizationError {
+  std::string err_msg;
+};
+
+struct TokenizationVisitor {
+  std::vector<Token> operator()(TokenizationError &err) {
+    std::cerr << err.err_msg << std::endl;
+    std::exit(EXIT_FAILURE);
+  };
+  std::vector<Token> operator()(std::vector<Token> &tokens) { return tokens; }
+};
+
 /**
  * Class for tokenizing expressions provided as command line arguments.
  */
@@ -47,7 +60,8 @@ public:
    * @param expr The math expression to tokenize
    * @return A vector of Token objects representing the parsed tokens.
    */
-  std::vector<Token> TokenizeExpression(std::string expr);
+  std::variant<std::vector<Token>, TokenizationError>
+  TokenizeExpression(std::string expr);
 }; // class Tokenizer
 
 #endif // INCLUDE_TOKENIZATION_H_

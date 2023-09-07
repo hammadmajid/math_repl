@@ -16,8 +16,10 @@ int main(int argc, char *argv[]) {
   std::string expr = std::visit(CmdVisitor{}, cmd_input.input);
 
   Tokenizer tokenizer;
-  std::vector<Token> tokens = tokenizer.TokenizeExpression(expr);
+  std::variant<std::vector<Token>, TokenizationError> tokekization_result = tokenizer.TokenizeExpression(expr);
 
+  std::vector<Token> tokens = std::visit(TokenizationVisitor{}, tokekization_result);
+  
   return EXIT_SUCCESS;
 }
 

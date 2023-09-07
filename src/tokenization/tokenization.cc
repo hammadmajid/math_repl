@@ -4,13 +4,11 @@
  */
 
 #include "tokenization/tokenization.h"
-#include "cmd/cmd.h"
 #include <vector>
 
-std::vector<Token> Tokenizer::TokenizeExpression(std::string expr) {
+std::variant<std::vector<Token>, TokenizationError>
+Tokenizer::TokenizeExpression(std::string expr) {
   std::vector<Token> tokens;
-
-  CmdLine cmd;
 
   for (int i = 0; i < expr.length(); i++) {
     if (std::isspace(expr.at(i))) {
@@ -62,7 +60,7 @@ std::vector<Token> Tokenizer::TokenizeExpression(std::string expr) {
     } else if (expr.at(i) == ')') {
       tokens.push_back({.token_type = TokenType::KCloseParen});
     } else {
-      cmd.ErrorWithHelpAndDie(expr + " is not a valid expression");
+      return TokenizationError{.err_msg = expr + "is not a valid expression"};
     }
   }
 
