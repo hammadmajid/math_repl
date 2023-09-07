@@ -25,6 +25,32 @@ struct CmdInput {
   std::variant<std::string, CmdError, CmdFlag> input;
 };
 
+struct CmdVisitor {
+  std::string operator()(CmdError &err) {
+    std::cerr << err.err_msg << std::endl;
+    std::exit(EXIT_FAILURE);
+  };
+
+  std::string operator()(CmdFlag &flag) {
+    if (flag == CmdFlag::VersionFlag) {
+      std::cout << "0.1.0-pre-release" << std::endl;
+      std::exit(EXIT_SUCCESS);
+    } else {
+      std::cout << "Usage:" << std::endl
+                << "\tneon \"[expression]\"" << std::endl
+                << std::endl
+                << "Examples:" << std::endl
+                << "\tneon \"3 + 2^4\"" << std::endl
+                << "\tneon \"20 * ( 12 / 18)\"" << std::endl
+                << "\tneon \"5!\"" << std::endl;
+
+      std::exit(EXIT_SUCCESS);
+    }
+  };
+
+  std::string operator()(std::string &expr) { return expr; }
+};
+
 /**
  * The class provides some utilites to change the behaviour
  * of the program at runtime
