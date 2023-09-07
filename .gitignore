@@ -20,4 +20,4 @@ lib
 
 # ignore build binary
 neon
-*_test
+tests

@@ -10,7 +10,7 @@
 std::vector<Token> Tokenizer::TokenizeExpression(std::string expr) {
   std::vector<Token> tokens;
 
-  Cmd cmd;
+  CmdLine cmd;
 
   for (int i = 0; i < expr.length(); i++) {
     if (std::isspace(expr.at(i))) {
