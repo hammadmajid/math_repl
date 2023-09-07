@@ -42,6 +42,7 @@ add_executable(tests
   src/tokenization/tokenization.cc
   src/cmd/cmd.cc
   test/tokenization/tokenization_test.cc
+  test/cmd/cmd_test.cc
 )
 
 target_link_libraries(tests
