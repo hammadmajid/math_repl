@@ -57,13 +57,6 @@ struct CmdVisitor {
  */
 class CmdLine {
 public:
-  /** This function prints an error message to the standard
-   * error stream, followed by the program's usage message,
-   * and then exits the program with a status of 1.
-   * @param err_msg The error message to print
-   */
-  void ErrorWithHelpAndDie(std::string err_msg);
-
   /** Parses command-line arguments and sets flags based on them.
    * @param argc The number of command-line arguments, including the program
    * name.

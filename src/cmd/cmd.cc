@@ -5,21 +5,8 @@
 
 #include "cmd/cmd.h"
 
-void CmdLine::ErrorWithHelpAndDie(std::string err_msg) {
-  std::cerr << err_msg << std::endl;
-
-  std::cout << "Usage:" << std::endl
-            << "\tneon \"[expression]\"" << std::endl
-            << std::endl
-            << "Examples:" << std::endl
-            << "\tneon \"3 + 2^4\"" << std::endl
-            << "\tneon \"20 * ( 12 / 18)\"" << std::endl
-            << "\tneon \"5!\"" << std::endl;
-
-  std::exit(EXIT_FAILURE);
-}
-
-CmdInput CmdLine::ParseArgvForExprAndSetFlags(int argc, const char *const *argv) {
+CmdInput CmdLine::ParseArgvForExprAndSetFlags(int argc,
+                                              const char *const *argv) {
   if (argc == 1 || argc > 5) {
     return CmdInput{CmdError{"Couldn't process arguments"}};
   }
