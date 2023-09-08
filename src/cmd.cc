@@ -5,31 +5,27 @@
 
 #include "cmd.h"
 
-CmdInput CmdLine::ParseArgvForExprAndSetFlags(int argc,
-                                              const char *const *argv) {
-  if (argc == 1 || argc > 5) {
-    return CmdInput{CmdError{"Couldn't process arguments"}};
+std::variant<std::string, CmdFlag>
+CmdLine::ParseArgvForExprAndSetFlags(int argc, const char *const *argv) {
+  if (argc == 1) {
+    return CmdFlag::Help; // No valid expression, return Help flag
   }
-
-  std::vector<std::string> args;
-  std::string expr;
 
   for (int i = 1; i < argc; i++) {
     if (strcmp(argv[i], "--version") == 0) {
-      return CmdInput{CmdFlag::VersionFlag};
+      return CmdFlag::Version; // Found --version flag
     } else if (strcmp(argv[i], "--help") == 0) {
-      return CmdInput{CmdFlag::HelpFlag};
+      return CmdFlag::Help; // Found --help flag
     } else {
-      expr = argv[i];
+      return std::string(argv[i]); // Assume the argument is an expression
     }
   }
-
-  return CmdInput{expr};
 }
 
 /**
 * Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
+* of this software and associated documentation files (the "Software"), to
+deal
 * in the Software without restriction, including without limitation the rights
 * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 * copies of the Software, and to permit persons to whom the Software is
@@ -42,7 +38,8 @@ CmdInput CmdLine::ParseArgvForExprAndSetFlags(int argc,
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM,
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 */

@@ -7,14 +7,16 @@ TEST(CmdTest, TestErrorCase) {
 
   // Test with argc = 0
   const char *argv0[] = {"neon"};
-  CmdInput result0 = cmdLine.ParseArgvForExprAndSetFlags(1, argv0);
-  ASSERT_TRUE(std::holds_alternative<CmdError>(result0.input));
+  std::variant<std::string, CmdFlag> result0 =
+      cmdLine.ParseArgvForExprAndSetFlags(1, argv0);
+  ASSERT_TRUE(std::holds_alternative<CmdFlag>(result0));
 
   // Test with argc > 5
   const char *argv6[] = {"neon", "arg1", "arg2", "arg3",
-                         "arg4",    "arg5", "arg6"};
-  CmdInput result6 = cmdLine.ParseArgvForExprAndSetFlags(7, argv6);
-  ASSERT_TRUE(std::holds_alternative<CmdError>(result6.input));
+                         "arg4", "arg5", "arg6"};
+  std::variant<std::string, CmdFlag> result6 =
+      cmdLine.ParseArgvForExprAndSetFlags(7, argv6);
+  ASSERT_TRUE(std::holds_alternative<CmdFlag>(result6));
 }
 
 TEST(CmdTest, TestFlagCase) {
@@ -23,15 +25,17 @@ TEST(CmdTest, TestFlagCase) {
 
   // Test with --version flag
   const char *argvVersion[] = {"program", "--version"};
-  CmdInput resultVersion = cmdLine.ParseArgvForExprAndSetFlags(2, argvVersion);
-  ASSERT_TRUE(std::holds_alternative<CmdFlag>(resultVersion.input));
-  ASSERT_EQ(std::get<CmdFlag>(resultVersion.input), CmdFlag::VersionFlag);
+  std::variant<std::string, CmdFlag> resultVersion =
+      cmdLine.ParseArgvForExprAndSetFlags(2, argvVersion);
+  ASSERT_TRUE(std::holds_alternative<CmdFlag>(resultVersion));
+  ASSERT_EQ(std::get<CmdFlag>(resultVersion), CmdFlag::Version);
 
   // Test with --help flag
   const char *argvHelp[] = {"program", "--help"};
-  CmdInput resultHelp = cmdLine.ParseArgvForExprAndSetFlags(2, argvHelp);
-  ASSERT_TRUE(std::holds_alternative<CmdFlag>(resultHelp.input));
-  ASSERT_EQ(std::get<CmdFlag>(resultHelp.input), CmdFlag::HelpFlag);
+  std::variant<std::string, CmdFlag> resultHelp =
+      cmdLine.ParseArgvForExprAndSetFlags(2, argvHelp);
+  ASSERT_TRUE(std::holds_alternative<CmdFlag>(resultHelp));
+  ASSERT_EQ(std::get<CmdFlag>(resultHelp), CmdFlag::Help);
 }
 
 TEST(CmdTest, TestValidExprCase) {
@@ -40,7 +44,8 @@ TEST(CmdTest, TestValidExprCase) {
 
   // Test with a valid expression
   const char *argvExpr[] = {"program", "2+2"};
-  CmdInput resultExpr = cmdLine.ParseArgvForExprAndSetFlags(2, argvExpr);
-  ASSERT_TRUE(std::holds_alternative<std::string>(resultExpr.input));
-  ASSERT_EQ(std::get<std::string>(resultExpr.input), "2+2");
+  std::variant<std::string, CmdFlag> resultExpr =
+      cmdLine.ParseArgvForExprAndSetFlags(2, argvExpr);
+  ASSERT_TRUE(std::holds_alternative<std::string>(resultExpr));
+  ASSERT_EQ(std::get<std::string>(resultExpr), "2+2");
 }

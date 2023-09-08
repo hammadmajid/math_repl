@@ -7,66 +7,40 @@
 #define INCLUDE_CMD_H_
 
 #include <iostream>
-#include <optional>
 #include <string.h>
 #include <variant>
-#include <vector>
 
+// Enumeration representing different command-line flags
 enum class CmdFlag {
-  VersionFlag,
-  HelpFlag,
-};
-
-struct CmdError {
-  std::string err_msg;
-};
-
-struct CmdInput {
-  std::variant<std::string, CmdError, CmdFlag> input;
-};
-
-struct CmdVisitor {
-  std::string operator()(CmdError &err) {
-    std::cerr << err.err_msg << std::endl;
-    std::exit(EXIT_FAILURE);
-  };
-
-  std::string operator()(CmdFlag &flag) {
-    if (flag == CmdFlag::VersionFlag) {
-      std::cout << "0.1.0-pre-release" << std::endl;
-      std::exit(EXIT_SUCCESS);
-    } else {
-      std::cout << "Usage:" << std::endl
-                << "\tneon \"[expression]\"" << std::endl
-                << std::endl
-                << "Examples:" << std::endl
-                << "\tneon \"3 + 2^4\"" << std::endl
-                << "\tneon \"20 * ( 12 / 18)\"" << std::endl
-                << "\tneon \"5!\"" << std::endl;
-
-      std::exit(EXIT_SUCCESS);
-    }
-  };
-
-  std::string operator()(std::string &expr) { return expr; }
+  Version, // Indicates a request for the version information
+  Help,    // Indicates a request for help or usage information
 };
 
 /**
- * The class provides some utilites to change the behaviour
- * of the program at runtime
+ * The `CmdLine` class provides utilities to parse command-line arguments
+ * and set flags based on them.
  */
 class CmdLine {
 public:
-  /** Parses command-line arguments and sets flags based on them.
+  /**
+   * Parses command-line arguments and sets flags based on them.
+   *
    * @param argc The number of command-line arguments, including the program
    * name.
    * @param argv An array of C-style strings representing the command-line
    * arguments.
-   * @return CmdInput which contains a variant of either std::string, CmdError,
-   * CmdFlag
+   *
+   * @return A variant containing either a std::string or a CmdFlag.
+   *         - If a valid expression is found, it returns the expression as a
+   * std::string.
+   *         - If a recognized flag is found, it returns the corresponding
+   * CmdFlag.
+   *         - If neither an expression nor a recognized flag is found, it
+   * returns an empty string.
    */
-  CmdInput ParseArgvForExprAndSetFlags(int argc, const char *const *argv);
-}; // class Cmd
+  std::variant<std::string, CmdFlag>
+  ParseArgvForExprAndSetFlags(int argc, const char *const *argv);
+};
 
 #endif // INCLUDE_CMD_H_
 
