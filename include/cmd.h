@@ -3,8 +3,8 @@
  * See the end file for full the license information
  */
 
-#ifndef INCLUDE_UTILS_H_
-#define INCLUDE_UTILS_H_
+#ifndef INCLUDE_CMD_H_
+#define INCLUDE_CMD_H_
 
 #include <iostream>
 #include <optional>
