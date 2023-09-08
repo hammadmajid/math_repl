@@ -33,16 +33,16 @@ enable_testing()
 # Define the main executable
 add_executable(neon
   src/main.cc
-  src/tokenization/tokenization.cc
-  src/cmd/cmd.cc
+  src/tokenization.cc
+  src/cmd.cc
 )
 
 # Define the test executable and link against GoogleTest
 add_executable(tests
-  src/tokenization/tokenization.cc
-  src/cmd/cmd.cc
-  test/tokenization/tokenization_test.cc
-  test/cmd/cmd_test.cc
+  src/tokenization.cc
+  src/cmd.cc
+  test/tokenization_test.cc
+  test/cmd_test.cc
 )
 
 target_link_libraries(tests

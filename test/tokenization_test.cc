@@ -1,4 +1,4 @@
-#include "tokenization/tokenization.h"
+#include "tokenization.h"
 #include <gtest/gtest.h>
 
 TEST(TokenizerTest, TestIntegerLiteral) {

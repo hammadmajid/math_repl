@@ -3,7 +3,7 @@
  * See the end file for full the license information
  */
 
-#include "cmd/cmd.h"
+#include "cmd.h"
 
 CmdInput CmdLine::ParseArgvForExprAndSetFlags(int argc,
                                               const char *const *argv) {

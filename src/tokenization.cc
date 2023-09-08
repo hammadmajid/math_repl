@@ -3,7 +3,7 @@
  * See the end file for full the license information
  */
 
-#include "tokenization/tokenization.h"
+#include "tokenization.h"
 #include <vector>
 
 std::variant<std::vector<Token>, TokenizationError>

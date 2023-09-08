@@ -3,8 +3,8 @@
  * See the end file for full the license information
  */
 
-#include "cmd/cmd.h"
-#include "tokenization/tokenization.h"
+#include "cmd.h"
+#include "tokenization.h"
 #include <iostream>
 #include <vector>
 

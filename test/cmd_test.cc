@@ -1,4 +1,4 @@
-#include "cmd/cmd.h"
+#include "cmd.h"
 #include <gtest/gtest.h>
 
 TEST(CmdTest, TestErrorCase) {
