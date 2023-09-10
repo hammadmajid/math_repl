@@ -42,8 +42,10 @@ add_executable(neon
 add_executable(tests
   src/tokenization.cc
   src/cmd.cc
+  src/parser.cc
   test/tokenization_test.cc
   test/cmd_test.cc
+  test/parser_test.cc
 )
 
 target_link_libraries(tests
