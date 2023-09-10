@@ -35,6 +35,7 @@ add_executable(neon
   src/main.cc
   src/tokenization.cc
   src/cmd.cc
+  src/parser.cc
 )
 
 # Define the test executable and link against GoogleTest

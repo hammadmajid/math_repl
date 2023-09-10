@@ -5,9 +5,9 @@
 
 #include "cmd.h"
 #include "tokenization.h"
-#include <iostream>
+#include <cstdlib>
+#include <parser.h>
 #include <variant>
-#include <vector>
 
 int main(int argc, char *argv[]) {
 
@@ -39,7 +39,18 @@ int main(int argc, char *argv[]) {
   std::vector<Token> tokens =
       std::visit(TokenizationVisitor{}, tokekization_result);
 
-  // TODO: parse the tokens into AST node
+  Parser parser(tokens);
+  std::variant<AST, ParserError> parser_result = parser.ParseTokensIntoAST();
+
+  if (std::holds_alternative<ParserError>(parser_result)) {
+    ParserError err = std::get<ParserError>(parser_result);
+    std::cerr << err.err_msg << std::endl;
+    std::exit(EXIT_FAILURE);
+  }
+
+  AST ast = std::get<AST>(parser_result);
+
+  // Evaluate each node on AST and print the final result
 
   return EXIT_SUCCESS;
 }
