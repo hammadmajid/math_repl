@@ -38,11 +38,11 @@ int main(int argc, char *argv[]) {
   }
 
   Tokenizer tokenizer;
-  std::variant<std::vector<Token>, TokenizationError> tokekization_result =
+  std::variant<std::vector<Token>, TokenizationError> tokenization_result =
       tokenizer.TokenizeExpression(expr);
 
   std::vector<Token> tokens =
-      std::visit(TokenizationVisitor{}, tokekization_result);
+      std::visit(TokenizationVisitor{}, tokenization_result);
 
   Parser parser(tokens);
   std::variant<AST, ParserError> parser_result = parser.ParseTokensIntoAST();
