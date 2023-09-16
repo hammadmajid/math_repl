@@ -11,12 +11,11 @@ TEST(CmdTest, TestErrorCase) {
       cmdLine.ParseArgvForExprAndSetFlags(1, argv0);
   ASSERT_TRUE(std::holds_alternative<CmdFlag>(result0));
 
-  // Test with argc > 5
-  const char *argv6[] = {"neon", "arg1", "arg2", "arg3",
-                         "arg4", "arg5", "arg6"};
-  std::variant<std::string, CmdFlag> result6 =
-      cmdLine.ParseArgvForExprAndSetFlags(7, argv6);
-  ASSERT_TRUE(std::holds_alternative<CmdFlag>(result6));
+  // Test with argc > 1
+  const char *argv2[] = {"neon", "arg1"};
+  std::variant<std::string, CmdFlag> result2 =
+      cmdLine.ParseArgvForExprAndSetFlags(7, argv2);
+  ASSERT_TRUE(std::holds_alternative<CmdFlag>(result2));
 }
 
 TEST(CmdTest, TestFlagCase) {

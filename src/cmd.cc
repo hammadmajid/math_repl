@@ -7,7 +7,8 @@
 
 std::variant<std::string, CmdFlag>
 CmdLine::ParseArgvForExprAndSetFlags(int argc, const char *const *argv) {
-  if (argc == 1) {
+  if (argc != 2) {
+    std::cout << "Expected exactly one argument found " << argc - 1 << std::endl;
     return CmdFlag::Help; // No valid expression, return Help flag
   }
 

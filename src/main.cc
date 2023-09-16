@@ -24,9 +24,14 @@ int main(int argc, char *argv[]) {
       std::cout << "0.1.1-pre-release" << std::endl;
       return EXIT_SUCCESS;
     } else { // Handle the case where a string (expression) was provided.
-      // TODO: print help
-      std::cout << "TODO: Print help and exit" << std::endl;
-      return EXIT_SUCCESS;
+        std::cout << "Usage:" << std::endl
+          << "\tneon \"[expression]\"" << std::endl
+          << std::endl
+          << "Examples:" << std::endl
+          << "\tneon \"3 + 2^4\"" << std::endl
+          << "\tneon \"20 * ( 12 / 18)\"" << std::endl
+          << "\tneon \"5!\"" << std::endl;
+        return EXIT_SUCCESS;
     }
   } else {
     expr = std::get<std::string>(cmd_result);

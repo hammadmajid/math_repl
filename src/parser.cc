@@ -12,5 +12,5 @@ Token Parser::consume() { return m_tokens.at(m_idx++); }
 
 std::variant<AST, ParserError> Parser::ParseTokensIntoAST() {
   return ParserError{
-      .err_msg = "Failed to parse tokens into AST, function no implemented yet."};
+      .err_msg = "Failed to parse tokens into AST, function not implemented yet."};
 }
