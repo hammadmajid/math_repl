@@ -108,7 +108,7 @@ private:
    * Peek at the next token in the token vector without consuming it.
    * @return An optional Token representing the next token, if available.
    */
-  inline std::optional<Token> peek();
+  [[nodiscard]] inline std::optional<Token> peek();
 
   /**
    * Consume the next token in the token vector.
