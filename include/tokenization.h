@@ -53,7 +53,10 @@ struct TokenizationVisitor {
  * Class for tokenizing expressions provided as command line arguments.
  */
 class Tokenizer {
+private:
+    std::string m_expr;
 public:
+    explicit Tokenizer(std::string expr) : m_expr(std::move(expr)) {}
   /**
    * Tokenizes the given command line arguments into a vector of Token objects.
    *
@@ -61,7 +64,7 @@ public:
    * @return A vector of Token objects representing the parsed tokens.
    */
   std::variant<std::vector<Token>, TokenizationError>
-  TokenizeExpression(std::string expr);
+  TokenizeExpression();
 }; // class Tokenizer
 
 #endif // INCLUDE_TOKENIZATION_H_

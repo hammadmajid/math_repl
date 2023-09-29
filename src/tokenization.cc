@@ -7,26 +7,26 @@
 #include <vector>
 
 std::variant<std::vector<Token>, TokenizationError>
-Tokenizer::TokenizeExpression(std::string expr) {
+Tokenizer::TokenizeExpression() {
   std::vector<Token> tokens;
 
-  for (int i = 0; i < expr.length(); i++) {
-    if (std::isspace(expr.at(i))) {
+  for (int i = 0; i < m_expr.length(); i++) {
+    if (std::isspace(m_expr.at(i))) {
       continue; /* Skip whitespace characters */
-    } else if (std::isdigit(expr.at(i)) || expr.at(i) == '.') {
+    } else if (std::isdigit(m_expr.at(i)) || m_expr.at(i) == '.') {
       /* Tokenize numeric literals (both integers and floating-point numbers) */
       std::string buf;
-      buf.push_back(expr.at(i));
+      buf.push_back(m_expr.at(i));
 
       int idx = i + 1; /* Next value in expr */
       bool isFloatingPoint = false;
 
-      while (std::isdigit(expr[idx]) ||
-             (expr[idx] == '.' && !isFloatingPoint)) {
-        if (expr[idx] == '.') {
+      while (std::isdigit(m_expr[idx]) ||
+             (m_expr[idx] == '.' && !isFloatingPoint)) {
+        if (m_expr[idx] == '.') {
           isFloatingPoint = true;
         }
-        buf.push_back(expr.at(idx));
+        buf.push_back(m_expr.at(idx));
         idx += 1;
       }
 
@@ -43,24 +43,24 @@ Tokenizer::TokenizeExpression(std::string expr) {
       }
 
       i = idx - 1;
-    } else if (expr.at(i) == '+') {
+    } else if (m_expr.at(i) == '+') {
       tokens.push_back({.token_type = TokenType::KAddition});
-    } else if (expr.at(i) == '-') {
+    } else if (m_expr.at(i) == '-') {
       tokens.push_back({.token_type = TokenType::KSubtraction});
-    } else if (expr.at(i) == '*') {
+    } else if (m_expr.at(i) == '*') {
       tokens.push_back({.token_type = TokenType::KMultiplication});
-    } else if (expr.at(i) == '/') {
+    } else if (m_expr.at(i) == '/') {
       tokens.push_back({.token_type = TokenType::KDivision});
-    } else if (expr.at(i) == '!') {
+    } else if (m_expr.at(i) == '!') {
       tokens.push_back({.token_type = TokenType::KFactorial});
-    } else if (expr.at(i) == '^') {
+    } else if (m_expr.at(i) == '^') {
       tokens.push_back({.token_type = TokenType::KExponentiation});
-    } else if (expr.at(i) == '(') {
+    } else if (m_expr.at(i) == '(') {
       tokens.push_back({.token_type = TokenType::KOpenParen});
-    } else if (expr.at(i) == ')') {
+    } else if (m_expr.at(i) == ')') {
       tokens.push_back({.token_type = TokenType::KCloseParen});
     } else {
-      return TokenizationError{.err_msg = expr + "is not a valid expression"};
+      return TokenizationError{.err_msg = m_expr + "is not a valid expression"};
     }
   }
 
