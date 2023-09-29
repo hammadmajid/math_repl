@@ -60,7 +60,7 @@ public:
    * @param expr The math expression to tokenize
    * @return A vector of Token objects representing the parsed tokens.
    */
-  std::variant<std::vector<Token>, TokenizationError>
+  static std::variant<std::vector<Token>, TokenizationError>
   TokenizeExpression(std::string expr);
 }; // class Tokenizer
 

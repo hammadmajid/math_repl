@@ -7,7 +7,7 @@
 #define INCLUDE_CMD_H_
 
 #include <iostream>
-#include <string.h>
+#include <cstring>
 #include <variant>
 
 // Enumeration representing different command-line flags

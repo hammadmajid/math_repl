@@ -91,7 +91,7 @@ public:
    *
    * @param tokens A vector of tokens to be parsed.
    */
-  Parser(std::vector<Token> tokens) : m_tokens(std::move(tokens)) {}
+  explicit Parser(std::vector<Token> tokens) : m_tokens(std::move(tokens)) {}
 
   /**
    * Parses tokens into an Abstract Syntax Tree (AST).
@@ -102,7 +102,7 @@ public:
 
 private:
   std::vector<Token> m_tokens; /**< The vector of tokens to be parsed. */
-  size_t m_idx;                /**< The current index in the token vector. */
+  size_t m_idx = 0;                /**< The current index in the token vector. */
 
   /**
    * Peek at the next token in the token vector without consuming it.

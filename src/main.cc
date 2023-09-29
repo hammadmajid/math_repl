@@ -11,9 +11,8 @@
 
 int main(int argc, char *argv[]) {
 
-  CmdLine cmd_line;
   std::variant<std::string, CmdFlag> cmd_result =
-          cmd_line.ParseArgs(argc, argv);
+          CmdLine::ParseArgs(argc, argv);
 
   std::string expr;
 
@@ -42,9 +41,8 @@ int main(int argc, char *argv[]) {
     expr = std::get<std::string>(cmd_result);
   }
 
-  Tokenizer tokenizer;
   std::variant<std::vector<Token>, TokenizationError> tokenization_result =
-      tokenizer.TokenizeExpression(expr);
+      Tokenizer::TokenizeExpression(expr);
 
   std::vector<Token> tokens =
       std::visit(TokenizationVisitor{}, tokenization_result);
