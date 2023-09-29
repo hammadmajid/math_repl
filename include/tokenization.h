@@ -54,7 +54,26 @@ struct TokenizationVisitor {
  */
 class Tokenizer {
 private:
+    /**
+     * The expression to tokenize.
+     */
     std::string m_expr;
+    /**
+     * The current index of the expression being tokenized.
+     */
+    size_t m_idx = 0;
+
+    /**
+     * Peek at the next character in the expression without consuming it.
+     * @return An optional char representing the next character, if available.
+     */
+    inline std::optional<char> peek();
+
+    /**
+     * Consume the next character in the expression.
+     * @return The consumed character.
+     */
+    inline char consume();
 public:
     explicit Tokenizer(std::string expr) : m_expr(std::move(expr)) {}
   /**
