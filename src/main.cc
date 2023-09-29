@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
 
   CmdLine cmd_line;
   std::variant<std::string, CmdFlag> cmd_result =
-      cmd_line.ParseArgvForExprAndSetFlags(argc, argv);
+          cmd_line.ParseArgs(argc, argv);
 
   std::string expr;
 

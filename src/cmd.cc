@@ -6,21 +6,19 @@
 #include "cmd.h"
 
 std::variant<std::string, CmdFlag>
-CmdLine::ParseArgvForExprAndSetFlags(int argc, const char *const *argv) {
-  if (argc != 2) {
-    std::cout << "Expected exactly one argument found " << argc - 1 << std::endl;
-    return CmdFlag::Help; // No valid expression, return Help flag
-  }
-
-  for (int i = 1; i < argc; i++) {
-    if (strcmp(argv[i], "--version") == 0) {
-      return CmdFlag::Version; // Found --version flag
-    } else if (strcmp(argv[i], "--help") == 0) {
-      return CmdFlag::Help; // Found --help flag
-    } else {
-      return std::string(argv[i]); // Assume the argument is an expression
+CmdLine::ParseArgs(int argc, const char *const *argv) {
+    if (argc != 2) {
+        std::cout << "Expected exactly one argument found " << argc - 1 << std::endl;
+        return CmdFlag::Help; // No valid expression, return Help flag
     }
-  }
+
+    if (strcmp(argv[1], "--version") == 0) {
+        return CmdFlag::Version; // Found --version flag
+    } else if (strcmp(argv[1], "--help") == 0) {
+        return CmdFlag::Help; // Found --help flag
+    } else {
+        return std::string(argv[1]); // Assume the argument is an expression
+    }
 }
 
 /**

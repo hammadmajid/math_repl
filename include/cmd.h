@@ -38,8 +38,8 @@ public:
    *         - If neither an expression nor a recognized flag is found, it
    * returns an empty string.
    */
-  std::variant<std::string, CmdFlag>
-  ParseArgvForExprAndSetFlags(int argc, const char *const *argv);
+  static std::variant<std::string, CmdFlag>
+  ParseArgs(int argc, const char *const *argv);
 };
 
 #endif // INCLUDE_CMD_H_
