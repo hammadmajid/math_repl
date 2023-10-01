@@ -41,8 +41,9 @@ int main(int argc, char *argv[]) {
     expr = std::get<std::string>(cmd_result);
   }
 
+  Tokenizer tokenizer(expr);
   std::variant<std::vector<Token>, TokenizationError> tokenization_result =
-      Tokenizer::TokenizeExpression(expr);
+      tokenizer.TokenizeExpression();
 
   std::vector<Token> tokens =
       std::visit(TokenizationVisitor{}, tokenization_result);
