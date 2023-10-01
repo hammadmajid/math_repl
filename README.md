@@ -1,10 +1,10 @@
-<h1><center>!! WORK IN PROGRESS !!</center></h1>
+<h1>!! WORK IN PROGRESS !!</h1>
 
-## neon - Math Expression Evaluator
+## neon - A Lightweight Mathematical Expression Evaluator
 
 ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg) [![CMake CI](https://github.com/hammadmajid/neon/actions/workflows/cmake-ci.yml/badge.svg)](https://github.com/hammadmajid/neon/actions/workflows/cmake-ci.yml)
 
-`neon` is a lightweight C++ program that allows you to evaluate mathematical expressions with ease.
+`neon` is a lightweight C++ program that allows you to evaluate mathematical expressions with ease. 
 
 ## Installation
 

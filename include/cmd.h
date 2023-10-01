@@ -7,13 +7,13 @@
 #define INCLUDE_CMD_H_
 
 #include <iostream>
-#include <string.h>
+#include <cstring>
 #include <variant>
 
 // Enumeration representing different command-line flags
 enum class CmdFlag {
-  Version, // Indicates a request for the version information
-  Help,    // Indicates a request for help or usage information
+    Version, // Indicates a request for the version information
+    Help,    // Indicates a request for help or usage information
 };
 
 /**
@@ -22,24 +22,24 @@ enum class CmdFlag {
  */
 class CmdLine {
 public:
-  /**
-   * Parses command-line arguments and sets flags based on them.
-   *
-   * @param argc The number of command-line arguments, including the program
-   * name.
-   * @param argv An array of C-style strings representing the command-line
-   * arguments.
-   *
-   * @return A variant containing either a std::string or a CmdFlag.
-   *         - If a valid expression is found, it returns the expression as a
-   * std::string.
-   *         - If a recognized flag is found, it returns the corresponding
-   * CmdFlag.
-   *         - If neither an expression nor a recognized flag is found, it
-   * returns an empty string.
-   */
-  std::variant<std::string, CmdFlag>
-  ParseArgvForExprAndSetFlags(int argc, const char *const *argv);
+    /**
+     * Parses command-line arguments and sets flags based on them.
+     *
+     * @param argc The number of command-line arguments, including the program
+     * name.
+     * @param argv An array of C-style strings representing the command-line
+     * arguments.
+     *
+     * @return A variant containing either a std::string or a CmdFlag.
+     *         - If a valid expression is found, it returns the expression as a
+     * std::string.
+     *         - If a recognized flag is found, it returns the corresponding
+     * CmdFlag.
+     *         - If neither an expression nor a recognized flag is found, it
+     * returns an empty string.
+     */
+    static std::variant<std::string, CmdFlag>
+    ParseArgs(int argc, const char *const *argv);
 };
 
 #endif // INCLUDE_CMD_H_

@@ -11,58 +11,57 @@
 
 int main(int argc, char *argv[]) {
 
-  CmdLine cmd_line;
-  std::variant<std::string, CmdFlag> cmd_result =
-      cmd_line.ParseArgvForExprAndSetFlags(argc, argv);
+    std::variant<std::string, CmdFlag> cmd_result =
+            CmdLine::ParseArgs(argc, argv);
 
-  std::string expr;
+    std::string expr;
 
-  if (std::holds_alternative<CmdFlag>(
-          cmd_result)) { // Handle the case where a command flag was provided.
-    CmdFlag flag = std::get<CmdFlag>(cmd_result);
-    if (flag == CmdFlag::Version) {
-      std::cout << "0.1.1-pre-release" << std::endl;
-      return EXIT_SUCCESS;
-    } else { // Handle the case where a string (expression) was provided.
-        std::cout << std::endl << "Usage:" << std::endl
-          << "\tneon \"math expression\" | [option]" << std::endl
-          << std::endl
-          << "Options:" << std::endl
-          << "\t--version Print version info and die" << std::endl
-          << "\t--help Print help and die" << std::endl
-          << std::endl
-          << "Examples:" << std::endl
-          << "\tneon \"3 + 2^4\"" << std::endl
-          << "\tneon \"20 * ( 12 / 18)\"" << std::endl
-          << "\tneon \"5!\"" << std::endl
-          << "\tneon --version" << std::endl;
-        return EXIT_SUCCESS;
+    if (std::holds_alternative<CmdFlag>(
+            cmd_result)) { // Handle the case where a command flag was provided.
+        CmdFlag flag = std::get<CmdFlag>(cmd_result);
+        if (flag == CmdFlag::Version) {
+            std::cout << "0.1.1-pre-release" << std::endl;
+            return EXIT_SUCCESS;
+        } else { // Handle the case where a string (expression) was provided.
+            std::cout << std::endl << "Usage:" << std::endl
+                      << "\tneon \"math expression\" | [option]" << std::endl
+                      << std::endl
+                      << "Options:" << std::endl
+                      << "\t--version Print version info and die" << std::endl
+                      << "\t--help Print help and die" << std::endl
+                      << std::endl
+                      << "Examples:" << std::endl
+                      << "\tneon \"3 + 2^4\"" << std::endl
+                      << "\tneon \"20 * ( 12 / 18)\"" << std::endl
+                      << "\tneon \"5!\"" << std::endl
+                      << "\tneon --version" << std::endl;
+            return EXIT_SUCCESS;
+        }
+    } else {
+        expr = std::get<std::string>(cmd_result);
     }
-  } else {
-    expr = std::get<std::string>(cmd_result);
-  }
 
-  Tokenizer tokenizer(expr);
-  std::variant<std::vector<Token>, TokenizationError> tokenization_result =
-      tokenizer.TokenizeExpression();
+    Tokenizer tokenizer(expr);
+    std::variant<std::vector<Token>, TokenizationError> tokenization_result =
+            tokenizer.TokenizeExpression();
 
-  std::vector<Token> tokens =
-      std::visit(TokenizationVisitor{}, tokenization_result);
+    std::vector<Token> tokens =
+            std::visit(TokenizationVisitor{}, tokenization_result);
 
-  Parser parser(tokens);
-  std::variant<AST, ParserError> parser_result = parser.ParseTokensIntoAST();
+    Parser parser(tokens);
+    std::variant<AST, ParserError> parser_result = parser.ParseTokensIntoAST();
 
-  if (std::holds_alternative<ParserError>(parser_result)) {
-    ParserError err = std::get<ParserError>(parser_result);
-    std::cerr << err.err_msg << std::endl;
-    std::exit(EXIT_FAILURE);
-  }
+    if (std::holds_alternative<ParserError>(parser_result)) {
+        ParserError err = std::get<ParserError>(parser_result);
+        std::cerr << err.err_msg << std::endl;
+        std::exit(EXIT_FAILURE);
+    }
 
-  AST ast = std::get<AST>(parser_result);
+    AST ast = std::get<AST>(parser_result);
 
-  // Evaluate each node on AST and print the final result
+    // Evaluate each node on AST and print the final result
 
-  return EXIT_SUCCESS;
+    return EXIT_SUCCESS;
 }
 
 /**

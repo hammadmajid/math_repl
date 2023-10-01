@@ -1,7 +1,4 @@
-# ignore cache
 .cache/
-
-# ignore cmake generated files
 CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles
@@ -14,10 +11,8 @@ compile_commands.json
 CTestTestfile.cmake
 _deps
 .cmake/
-compile_commands.json
 lib
 *.cmake
-
-# ignore build binary
 neon
 tests
+cmake-build-debug/

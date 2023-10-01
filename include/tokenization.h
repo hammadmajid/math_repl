@@ -82,14 +82,12 @@ public:
     explicit Tokenizer(std::string expr) : m_expr(std::move(expr)) {}
 
     /**
-     * Tokenizes the given command line arguments into a vector of Token objects.
+     * Tokenizes the math expression
      *
-     * @param expr The math expression to tokenize
      * @return A vector of Token objects representing the parsed tokens.
      */
     std::variant<std::vector<Token>, TokenizationError>
     TokenizeExpression();
-
 }; // class Tokenizer
 
 #endif // INCLUDE_TOKENIZATION_H_
