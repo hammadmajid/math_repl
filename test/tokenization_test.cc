@@ -2,10 +2,10 @@
 #include <gtest/gtest.h>
 
 TEST(TokenizerTest, TestIntegerLiteral) {
-  Tokenizer tokenizer;
   std::string expr = "42";
+  Tokenizer tokenizer(expr);
   std::variant<std::vector<Token>, TokenizationError> result =
-      tokenizer.TokenizeExpression(expr);
+      tokenizer.TokenizeExpression();
   ASSERT_TRUE(std::holds_alternative<std::vector<Token>>(result));
 
   std::vector<Token> tokens = std::get<std::vector<Token>>(result);
@@ -15,10 +15,10 @@ TEST(TokenizerTest, TestIntegerLiteral) {
 }
 
 TEST(TokenizerTest, TestFloatLiteral) {
-  Tokenizer tokenizer;
   std::string expr = "3.14";
+  Tokenizer tokenizer(expr);
   std::variant<std::vector<Token>, TokenizationError> result =
-      tokenizer.TokenizeExpression(expr);
+      tokenizer.TokenizeExpression();
   ASSERT_TRUE(std::holds_alternative<std::vector<Token>>(result));
 
   std::vector<Token> tokens = std::get<std::vector<Token>>(result);
@@ -28,10 +28,10 @@ TEST(TokenizerTest, TestFloatLiteral) {
 }
 
 TEST(TokenizerTest, TestOperatorsAndParentheses) {
-  Tokenizer tokenizer;
   std::string expr = "(1 + 2) * 3 - 4 / 5 ^ 6!";
+  Tokenizer tokenizer(expr);
   std::variant<std::vector<Token>, TokenizationError> result =
-      tokenizer.TokenizeExpression(expr);
+      tokenizer.TokenizeExpression();
   ASSERT_TRUE(std::holds_alternative<std::vector<Token>>(result));
 
   std::vector<Token> tokens = std::get<std::vector<Token>>(result);
@@ -61,9 +61,9 @@ TEST(TokenizerTest, TestOperatorsAndParentheses) {
 }
 
 TEST(TokenizerTest, TestInvalidExpression) {
-  Tokenizer tokenizer;
   std::string expr = "2 + abc";
+  Tokenizer tokenizer(expr);
   std::variant<std::vector<Token>, TokenizationError> result =
-      tokenizer.TokenizeExpression(expr);
+      tokenizer.TokenizeExpression();
   ASSERT_TRUE(std::holds_alternative<TokenizationError>(result));
 }
