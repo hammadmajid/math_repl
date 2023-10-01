@@ -16,16 +16,16 @@
  * Enumeration defining various token types for expression parsing.
  */
 enum class TokenType {
-  KIntLit,         // Integer literal
-  KFloatLit,       // Floating-point literal
-  KAddition,       // Addition operator '+'
-  KDivision,       // Division operator '/'
-  KSubtraction,    // Subtraction operator '-'
-  KMultiplication, // Multiplication operator '*'
-  KExponentiation, // Exponentiation operator '^'
-  KFactorial,      // Factorial operator '!'
-  KOpenParen,      // Opening parenthesis '('
-  KCloseParen,     // Closing parenthesis ')'
+    KIntLit,         // Integer literal
+    KFloatLit,       // Floating-point literal
+    KAddition,       // Addition operator '+'
+    KDivision,       // Division operator '/'
+    KSubtraction,    // Subtraction operator '-'
+    KMultiplication, // Multiplication operator '*'
+    KExponentiation, // Exponentiation operator '^'
+    KFactorial,      // Factorial operator '!'
+    KOpenParen,      // Opening parenthesis '('
+    KCloseParen,     // Closing parenthesis ')'
 };
 
 /**
@@ -33,20 +33,21 @@ enum class TokenType {
  * value.
  */
 struct Token {
-  TokenType token_type;
-  std::optional<std::string> value{};
+    TokenType token_type;
+    std::optional<std::string> value{};
 };
 
 struct TokenizationError {
-  std::string err_msg;
+    std::string err_msg;
 };
 
 struct TokenizationVisitor {
-  std::vector<Token> operator()(TokenizationError &err) {
-    std::cerr << err.err_msg << std::endl;
-    std::exit(EXIT_FAILURE);
-  };
-  std::vector<Token> operator()(std::vector<Token> &tokens) { return tokens; }
+    std::vector<Token> operator()(TokenizationError &err) {
+        std::cerr << err.err_msg << std::endl;
+        std::exit(EXIT_FAILURE);
+    };
+
+    std::vector<Token> operator()(std::vector<Token> &tokens) { return tokens; }
 };
 
 /**
@@ -74,16 +75,21 @@ private:
      * @return The consumed character.
      */
     inline char consume();
+
+    Token TokenizeNumericValue();
+
 public:
     explicit Tokenizer(std::string expr) : m_expr(std::move(expr)) {}
-  /**
-   * Tokenizes the given command line arguments into a vector of Token objects.
-   *
-   * @param expr The math expression to tokenize
-   * @return A vector of Token objects representing the parsed tokens.
-   */
-  std::variant<std::vector<Token>, TokenizationError>
-  TokenizeExpression();
+
+    /**
+     * Tokenizes the given command line arguments into a vector of Token objects.
+     *
+     * @param expr The math expression to tokenize
+     * @return A vector of Token objects representing the parsed tokens.
+     */
+    std::variant<std::vector<Token>, TokenizationError>
+    TokenizeExpression();
+
 }; // class Tokenizer
 
 #endif // INCLUDE_TOKENIZATION_H_

@@ -4,82 +4,82 @@
  */
 
 #include "tokenization.h"
-#include <vector>
 
 std::optional<char> Tokenizer::peek() {
-  if (m_idx + 1 >= m_expr.length()) {
-      return {};
-  } else {
-    return m_expr.at(m_idx);
-  }
+    if (m_idx + 1 > m_expr.length()) {
+        return {};
+    } else {
+        return m_expr.at(m_idx);
+    }
 }
 
 char Tokenizer::consume() { return m_expr.at(m_idx++); }
 
+Token Tokenizer::TokenizeNumericValue() {
+    bool is_floating = false;
+    std::string num_buf;
+    num_buf.push_back(consume());
+
+    while (peek().has_value() && std::isdigit(peek().value())) {
+        num_buf.push_back(consume());
+    }
+
+    if (peek().has_value() && peek().value() == '.') {
+        is_floating = true;
+        num_buf.push_back(consume());
+        while (peek().has_value() && std::isdigit(peek().value())) {
+            num_buf.push_back(consume());
+        }
+    }
+
+    if (is_floating) {
+        return {.token_type = TokenType::KFloatLit, .value = num_buf};
+    } else {
+        return {.token_type = TokenType::KIntLit, .value = num_buf};
+    }
+}
+
 std::variant<std::vector<Token>, TokenizationError>
 Tokenizer::TokenizeExpression() {
-  std::vector<Token> tokens;
+    std::vector<Token> tokens;
 
-  while(peek().has_value()) {
-    if (std::isspace(peek().value())) {
-      consume();
-      continue;
-    } else if (std::isdigit(peek().value()) || peek().value() == '.') {
-      /* Tokenize numeric literals (both integers and floating-point numbers) */
-      std::string buf;
-      buf.push_back(consume());
-
-      bool isFloatingPoint = false;
-
-      while (std::isdigit(peek().value()) ||
-             (peek().value() == '.' && !isFloatingPoint)) {
-        if (peek().value() == '.') {
-          isFloatingPoint = true;
+    while (peek().has_value()) {
+        if (std::isspace((peek().value()))) {
+            consume();
+        } else if (std::isdigit(peek().value())) {
+            tokens.push_back(TokenizeNumericValue());
+        } else if (peek().value() == '+') {
+            consume();
+            tokens.push_back({.token_type = TokenType::KAddition});
+        } else if (peek().value() == '-') {
+            consume();
+            tokens.push_back({.token_type = TokenType::KSubtraction});
+        } else if (peek().value() == '*') {
+            consume();
+            tokens.push_back({.token_type = TokenType::KMultiplication});
+        } else if (peek().value() == '/') {
+            consume();
+            tokens.push_back({.token_type = TokenType::KDivision});
+        } else if (peek().value() == '^') {
+            consume();
+            tokens.push_back({.token_type = TokenType::KExponentiation});
+        } else if (peek().value() == '!') {
+            consume();
+            tokens.push_back({.token_type = TokenType::KFactorial});
+        } else if (peek().value() == '(') {
+            consume();
+            tokens.push_back({.token_type = TokenType::KOpenParen});
+        } else if (peek().value() == ')') {
+            consume();
+            tokens.push_back({.token_type = TokenType::KCloseParen});
+        } else {
+            return TokenizationError{
+                    .err_msg = "Invalid character in expression: " +
+                               std::string(1, peek().value())};
         }
-        buf.push_back(consume());
-      }
-
-      if (isFloatingPoint) {
-        tokens.push_back({
-            .token_type = TokenType::KFloatLit,
-            .value = buf,
-        });
-      } else {
-        tokens.push_back({
-            .token_type = TokenType::KIntLit,
-            .value = buf,
-        });
-      }
-    } else if (peek().value() == '+') {
-      tokens.push_back({.token_type = TokenType::KAddition});
-      consume();
-    } else if (peek().value() == '-') {
-      tokens.push_back({.token_type = TokenType::KSubtraction});
-      consume();
-    } else if (peek().value() == '*') {
-      tokens.push_back({.token_type = TokenType::KMultiplication});
-      consume();
-    } else if (peek().value() == '/') {
-      tokens.push_back({.token_type = TokenType::KDivision});
-      consume();
-    } else if (peek().value() == '!') {
-      tokens.push_back({.token_type = TokenType::KFactorial});
-      consume();
-    } else if (peek().value() == '^') {
-      tokens.push_back({.token_type = TokenType::KExponentiation});
-      consume();
-    } else if (peek().value() == '(') {
-      tokens.push_back({.token_type = TokenType::KOpenParen});
-      consume();
-    } else if (peek().value() == ')') {
-      tokens.push_back({.token_type = TokenType::KCloseParen});
-      consume();
-    } else {
-      return TokenizationError{.err_msg = m_expr + " is not a valid expression"};
     }
-  }
 
-  return tokens;
+    return tokens;
 }
 
 /**
