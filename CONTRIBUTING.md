@@ -13,18 +13,18 @@ First, clone the repository locally using one of the following methods:
 Using Git:
 
 ```shell
-git clone https://github.com/hammadmajid/neon.git
+git clone https://github.com/hammadmajid/mee.git
 ```
 
 Using GitHub CLI (gh):
 
 ```shell
-gh repo clone hammadmajid/neon
+gh repo clone hammadmajid/mee
 ```
 
 Alternatively, you can open the repository in GitHub Codespaces by clicking the badge below:
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/hammadmajid/neon)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/hammadmajid/mee)
 
 ### Local Setup
 

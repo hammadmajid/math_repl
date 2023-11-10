@@ -3,10 +3,10 @@
 
 cmake_minimum_required(VERSION 3.20)
 
-project(neon VERSION 0.1.0 LANGUAGES CXX)
+project(mee VERSION 0.1.0 LANGUAGES CXX)
 set(PROJECT_DESCRIPTION "A simple math expression evaluator written in C++.")
 set(PROJECT_LICENSE "MIT License")
-set(PROJECT_HOMEPAGE_URL "https://github.com/hammadmajid/neon")
+set(PROJECT_HOMEPAGE_URL "https://github.com/hammadmajid/mee")
 
 # Set C++ standard and compile commands export
 set(CMAKE_CXX_STANDARD 20)
@@ -31,7 +31,7 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 # Define the main executable
-add_executable(neon
+add_executable(mee
   src/main.cc
   src/tokenization.cc
   src/cmd.cc

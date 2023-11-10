@@ -24,17 +24,17 @@ int main(int argc, char *argv[]) {
             return EXIT_SUCCESS;
         } else { // Handle the case where a string (expression) was provided.
             std::cout << std::endl << "Usage:" << std::endl
-                      << "\tneon \"math expression\" | [option]" << std::endl
+                      << "\tmee \"math expression\" | [option]" << std::endl
                       << std::endl
                       << "Options:" << std::endl
                       << "\t--version Print version info and die" << std::endl
                       << "\t--help Print help and die" << std::endl
                       << std::endl
                       << "Examples:" << std::endl
-                      << "\tneon \"3 + 2^4\"" << std::endl
-                      << "\tneon \"20 * ( 12 / 18)\"" << std::endl
-                      << "\tneon \"5!\"" << std::endl
-                      << "\tneon --version" << std::endl;
+                      << "\tmee \"3 + 2^4\"" << std::endl
+                      << "\tmee \"20 * ( 12 / 18)\"" << std::endl
+                      << "\tmee \"5!\"" << std::endl
+                      << "\tmee --version" << std::endl;
             return EXIT_SUCCESS;
         }
     } else {

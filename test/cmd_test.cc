@@ -11,13 +11,13 @@ TEST(CmdTest, TestErrorCase) {
     CmdLine cmdLine;
 
     // Test with argc = 0
-    const char *argv0[] = {"neon"};
+    const char *argv0[] = {"mee"};
     std::variant<std::string, CmdFlag> result0 =
             cmdLine.ParseArgs(1, argv0);
     ASSERT_TRUE(std::holds_alternative<CmdFlag>(result0));
 
     // Test with argc > 1
-    const char *argv2[] = {"neon", "arg1"};
+    const char *argv2[] = {"mee", "arg1"};
     std::variant<std::string, CmdFlag> result2 =
             cmdLine.ParseArgs(7, argv2);
     ASSERT_TRUE(std::holds_alternative<CmdFlag>(result2));
