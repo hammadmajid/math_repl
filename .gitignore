@@ -16,3 +16,16 @@ lib
 mee
 tests
 cmake-build-debug/
+ALL_BUILD.vcxproj.filters
+ALL_BUILD.vcxproj
+INSTALL.vcxproj
+INSTALL.vcxproj.filters
+RUN_TESTS.vcxproj
+RUN_TESTS.vcxproj.filters
+ZERO_CHECK.vcxproj
+ZERO_CHECK.vcxproj.filters
+mee.sln
+mee.vcxproj
+mee.vcxproj.filters
+tests.vcxproj
+tests.vcxproj.filters
