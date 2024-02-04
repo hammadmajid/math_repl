@@ -33,14 +33,14 @@ TEST(TokenizerTest, TestFloatLiteral) {
 }
 
 TEST(TokenizerTest, TestOperatorsAndParentheses) {
-    std::string expr = "(1 + 2) * 3 - 4 / 5 ^ 6!";
+    std::string expr = "(1 + 2) * 3 - 4 / 5 ^ 6";
     Tokenizer tokenizer(expr);
     std::variant<std::vector<Token>, TokenizationError> result =
             tokenizer.TokenizeExpression();
     ASSERT_TRUE(std::holds_alternative<std::vector<Token>>(result));
 
     std::vector<Token> tokens = std::get<std::vector<Token>>(result);
-    ASSERT_EQ(tokens.size(), 14);
+    ASSERT_EQ(tokens.size(), 13);
 
     // Verify the token types and values
     ASSERT_EQ(tokens[0].token_type, TokenType::KOpenParen);
@@ -62,7 +62,6 @@ TEST(TokenizerTest, TestOperatorsAndParentheses) {
     ASSERT_EQ(tokens[11].token_type, TokenType::KExponentiation);
     ASSERT_EQ(tokens[12].token_type, TokenType::KIntLit);
     ASSERT_EQ(tokens[12].value, "6");
-    ASSERT_EQ(tokens[13].token_type, TokenType::KFactorial);
 }
 
 TEST(TokenizerTest, TestInvalidExpression) {

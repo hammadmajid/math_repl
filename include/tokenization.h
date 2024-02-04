@@ -23,7 +23,6 @@ enum class TokenType {
     KSubtraction,    // Subtraction operator '-'
     KMultiplication, // Multiplication operator '*'
     KExponentiation, // Exponentiation operator '^'
-    KFactorial,      // Factorial operator '!'
     KOpenParen,      // Opening parenthesis '('
     KCloseParen,     // Closing parenthesis ')'
 };

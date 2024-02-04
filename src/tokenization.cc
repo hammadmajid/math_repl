@@ -63,9 +63,6 @@ Tokenizer::TokenizeExpression() {
         } else if (peek().value() == '^') {
             consume();
             tokens.push_back({.token_type = TokenType::KExponentiation});
-        } else if (peek().value() == '!') {
-            consume();
-            tokens.push_back({.token_type = TokenType::KFactorial});
         } else if (peek().value() == '(') {
             consume();
             tokens.push_back({.token_type = TokenType::KOpenParen});
