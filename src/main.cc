@@ -73,6 +73,30 @@ int main(int argc, char *argv[]) {
 
     auto postfix_tokens = std::get<std::vector<Token>>(parser_result);
 
+    for (auto &[token_type, value]: postfix_tokens) {
+        switch (token_type) {
+            case TokenType::KIntLit:
+            case TokenType::KFloatLit:
+                std::cout << value.value() << " ";
+                break;
+            case TokenType::KAddition:
+                std::cout << "+" << " ";
+                break;
+            case TokenType::KDivision:
+                std::cout << "/" << " ";
+                break;
+            case TokenType::KSubtraction:
+                std::cout << "-" << " ";
+                break;
+            case TokenType::KMultiplication:
+                std::cout << "-" << " ";
+                break;
+            case TokenType::KExponentiation:
+                std::cout << "-" << " ";
+                break;
+        }
+    }
+
     // TODO: Evaluate the tokens postifix notation and print the result
 
     return EXIT_SUCCESS;
