@@ -70,6 +70,17 @@ private:
      * @return The consumed Token.
      */
     inline Token consume();
+
+    /**
+     * Calculate the precedence of the operator. The precdence as:
+     * 0 - default precedence
+     * 1 - low precedence
+     * 2 - medium precedence
+     * 3 - high precedenve
+     * @param type The TokenType of the token whose precedence will be calculated
+     * @return The precendenc of the operator in 0..3 range
+     */
+    [[nodiscard]] unsigned short int static GetOperatorPrecedence(TokenType type);
 };
 
 #endif // INCLUDE_PARSER_H_
