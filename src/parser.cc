@@ -6,11 +6,11 @@
 #include "parser.h"
 
 std::optional<Token> Parser::peek() {
-    if (m_idx + 1 >= m_tokens.size()) {
-        return m_tokens.at(m_idx);
-    } else {
-        return {};
+    if (m_idx < m_tokens.size()) {
+        return m_tokens[m_idx];
     }
+
+    return {};
 }
 
 Token Parser::consume() { return m_tokens.at(m_idx++); }
