@@ -8,10 +8,22 @@
 #include <tokenization.h>
 
 /**
+ * Enumeration representing various types of errors that can occur during parsing.
+ */
+enum class ParserErrorType {
+    MissingOperand, // Every operator requires two operand, throw this if missing
+    MismatchedParentheses, // Throw this if opening or closing parentheses is missing
+    ExtraOperand,
+    DivisionByZero,
+    InvalidExpression, // General catch-all for other errors
+};
+
+/**
  * Represents an error that can occur during parsing.
  */
 struct ParserError {
-    std::string err_msg; /**< The error message. */
+    ParserErrorType type; /**< The type of error that occured. */
+    std::string msg; /**< The error message. */
 };
 
 /**

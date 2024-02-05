@@ -52,9 +52,26 @@ int main(int argc, char *argv[]) {
     std::variant<std::vector<Token>, ParserError> parser_result = parser.ConvertToPostFixNotation();
 
     if (std::holds_alternative<ParserError>(parser_result)) {
-        ParserError err = std::get<ParserError>(parser_result);
-        std::cerr << err.err_msg << std::endl;
-        std::exit(EXIT_FAILURE);
+        const auto [type, msg] = std::get<ParserError>(parser_result);
+        switch (type) {
+            case ParserErrorType::MissingOperand:
+                std::cerr << "Error: Missing operand" << std::endl;
+                break;
+            case ParserErrorType::MismatchedParentheses:
+                std::cerr << "Error: Mismatched parentheses" << std::endl;
+                break;
+            case ParserErrorType::ExtraOperand:
+                std::cerr << "Error: Extra operand" << std::endl;
+                break;
+            case ParserErrorType::DivisionByZero:
+                std::cerr << "Error: Division by zero" << std::endl;
+                break;
+            case ParserErrorType::InvalidExpression:
+                std::cerr << "Error: Invalid expression" << std::endl;
+            break;
+        }
+        std::cerr << msg << std::endl;
+        return EXIT_FAILURE;
     }
 
     auto postfix_tokens = std::get<std::vector<Token>>(parser_result);

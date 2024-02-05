@@ -17,7 +17,8 @@ Token Parser::consume() { return m_tokens.at(m_idx++); }
 
 std::variant<std::vector<Token>, ParserError> Parser::ConvertToPostFixNotation() {
     return ParserError{
-            .err_msg = "TODO ERROR! Failed to parse and convert tokens into postfix notation.\nCause: function not implemented yet."};
+            .type = ParserErrorType::InvalidExpression,
+            .msg = "TODO ERROR! Failed to parse and convert tokens into postfix notation.\nCause: function not implemented yet."};
 }
 
 /**
