@@ -63,9 +63,6 @@ int main(int argc, char *argv[]) {
             case ParserErrorType::ExtraOperand:
                 std::cerr << "Error: Extra operand" << std::endl;
                 break;
-            case ParserErrorType::DivisionByZero:
-                std::cerr << "Error: Division by zero" << std::endl;
-                break;
             case ParserErrorType::InvalidExpression:
                 std::cerr << "Error: Invalid expression" << std::endl;
             break;
