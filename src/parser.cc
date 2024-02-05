@@ -15,6 +15,20 @@ std::optional<Token> Parser::peek() {
 
 Token Parser::consume() { return m_tokens.at(m_idx++); }
 
+unsigned short int Parser::GetOperatorPrecedence(const TokenType type)  {
+    if (type == TokenType::KAddition || type == TokenType::KSubtraction) {
+        return 1;
+    }
+    if (type == TokenType::KDivision || type == TokenType::KMultiplication) {
+        return 2;
+    }
+    if (type == TokenType::KExponentiation) {
+        return 3;
+    }
+
+    return 0;
+}
+
 std::variant<std::vector<Token>, ParserError> Parser::ConvertToPostFixNotation() {
     return ParserError{
             .type = ParserErrorType::InvalidExpression,
