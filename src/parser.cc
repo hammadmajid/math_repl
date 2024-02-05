@@ -15,9 +15,9 @@ std::optional<Token> Parser::peek() {
 
 Token Parser::consume() { return m_tokens.at(m_idx++); }
 
-std::variant<AST, ParserError> Parser::ParseTokensIntoAST() {
+std::variant<std::vector<Token>, ParserError> Parser::ConvertToPostFixNotation() {
     return ParserError{
-            .err_msg = "Failed to parse tokens into AST, function not implemented yet."};
+            .err_msg = "TODO ERROR! Failed to parse and convert tokens into postfix notation.\nCause: function not implemented yet."};
 }
 
 /**

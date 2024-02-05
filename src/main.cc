@@ -45,11 +45,11 @@ int main(int argc, char *argv[]) {
     std::variant<std::vector<Token>, TokenizationError> tokenization_result =
             tokenizer.TokenizeExpression();
 
-    std::vector<Token> tokens =
+    std::vector<Token> infix_tokens =
             std::visit(TokenizationVisitor{}, tokenization_result);
 
-    Parser parser(tokens);
-    std::variant<AST, ParserError> parser_result = parser.ParseTokensIntoAST();
+    Parser parser(infix_tokens);
+    std::variant<std::vector<Token>, ParserError> parser_result = parser.ConvertToPostFixNotation();
 
     if (std::holds_alternative<ParserError>(parser_result)) {
         ParserError err = std::get<ParserError>(parser_result);
@@ -57,9 +57,9 @@ int main(int argc, char *argv[]) {
         std::exit(EXIT_FAILURE);
     }
 
-    AST ast = std::get<AST>(parser_result);
+    auto postfix_tokens = std::get<std::vector<Token>>(parser_result);
 
-    // Evaluate each node on AST and print the final result
+    // TODO: Evaluate the tokens postifix notation and print the result
 
     return EXIT_SUCCESS;
 }

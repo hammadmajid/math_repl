@@ -18,11 +18,11 @@ TEST(ParserTest, SuccessfulParsing) {
     // Create a Parser object with the tokens.
     Parser parser(tokens);
 
-    // Parse the tokens into an AST.
-    auto result = parser.ParseTokensIntoAST();
+    // Convert the infix tokens into postfix ones.
+    auto result = parser.ConvertToPostFixNotation();
 
-    // Check if the result is an AST.
-    ASSERT_TRUE(std::holds_alternative<AST>(result));
+    // Check if the result is a stack of Token.
+    ASSERT_TRUE(std::holds_alternative<std::vector<Token>>(result));
 }
 
 // Test case for an unsuccessful parsing scenario.
@@ -37,8 +37,8 @@ TEST(ParserTest, ParsingError) {
     // Create a Parser object with the tokens.
     Parser parser(tokens);
 
-    // Parse the tokens into an AST.
-    auto result = parser.ParseTokensIntoAST();
+    // Convert the infix tokens into postfix ones.
+    auto result = parser.ConvertToPostFixNotation();
 
     // Check if the result is a ParserError.
     ASSERT_TRUE(std::holds_alternative<ParserError>(result));
