@@ -18,8 +18,7 @@
 enum class ParserErrorType {
     MissingOperand, // Every operator requires two operand, throw this if missing
     MismatchedParentheses, // Throw this if opening or closing parentheses is missing
-    ExtraOperand,
-    DivisionByZero,
+    ExtraOperand, // Thow if there is extra operand in the expression
     InvalidExpression, // General catch-all for other errors
 };
 
