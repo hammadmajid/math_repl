@@ -12,6 +12,10 @@ set(PROJECT_HOMEPAGE_URL "https://github.com/hammadmajid/mee")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_EXPORT_COMPILE_COMMANDS true)
 
+# Set sccache 
+find_program(SCCACHE sccache REQUIRED)
+set(CMAKE_CXX_COMPILER_LAUNCHER ${SCCACHE})
+
 # Include directories
 include_directories(include)
 
