@@ -89,13 +89,15 @@ int main(int argc, char *argv[]) {
                 std::cout << "-" << " ";
                 break;
             case TokenType::KMultiplication:
-                std::cout << "-" << " ";
+                std::cout << "*" << " ";
                 break;
             case TokenType::KExponentiation:
-                std::cout << "-" << " ";
+                std::cout << "!" << " ";
                 break;
         }
     }
+
+    std::cout << std::endl;
 
     // TODO: Evaluate the tokens postifix notation and print the result
 
