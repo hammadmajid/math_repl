@@ -5,7 +5,7 @@ pub struct Scanner {
     pub(crate) errors: Vec<String>,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub enum Token {
     Number(f32),
     LeftParen,
@@ -120,5 +120,137 @@ impl Scanner {
 
     fn peek_next(&self) -> Option<&char> {
         self.chars.get(self.char_idx + 1)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_single_digit_numbers() {
+        let source = "3 + 4".to_string();
+        let mut scanner = Scanner::new(source);
+        let tokens = scanner.scan();
+
+        assert_eq!(
+            tokens,
+            vec![Token::Number(3.0), Token::Plus, Token::Number(4.0)]
+        );
+        assert_eq!(scanner.has_error, false);
+        assert!(scanner.errors.is_empty());
+    }
+
+    #[test]
+    fn test_multiple_digit_numbers() {
+        let source = "12 * 34".to_string();
+        let mut scanner = Scanner::new(source);
+        let tokens = scanner.scan();
+
+        assert_eq!(
+            tokens,
+            vec![Token::Number(12.0), Token::Multiply, Token::Number(34.0)]
+        );
+        assert_eq!(scanner.has_error, false);
+        assert!(scanner.errors.is_empty());
+    }
+
+    #[test]
+    fn test_decimal_numbers() {
+        let source = "12.34 + 56.78".to_string();
+        let mut scanner = Scanner::new(source);
+        let tokens = scanner.scan();
+
+        assert_eq!(
+            tokens,
+            vec![Token::Number(12.34), Token::Plus, Token::Number(56.78)]
+        );
+        assert_eq!(scanner.has_error, false);
+        assert!(scanner.errors.is_empty());
+    }
+
+    #[test]
+    fn test_parentheses() {
+        let source = "(1 + 2) * 3".to_string();
+        let mut scanner = Scanner::new(source);
+        let tokens = scanner.scan();
+
+        assert_eq!(
+            tokens,
+            vec![
+                Token::LeftParen,
+                Token::Number(1.0),
+                Token::Plus,
+                Token::Number(2.0),
+                Token::RightParen,
+                Token::Multiply,
+                Token::Number(3.0)
+            ]
+        );
+        assert_eq!(scanner.has_error, false);
+        assert!(scanner.errors.is_empty());
+    }
+
+    #[test]
+    fn test_division_and_subtraction() {
+        let source = "10 / 2 - 3".to_string();
+        let mut scanner = Scanner::new(source);
+        let tokens = scanner.scan();
+
+        assert_eq!(
+            tokens,
+            vec![
+                Token::Number(10.0),
+                Token::Divide,
+                Token::Number(2.0),
+                Token::Minus,
+                Token::Number(3.0)
+            ]
+        );
+        assert_eq!(scanner.has_error, false);
+        assert!(scanner.errors.is_empty());
+    }
+
+    #[test]
+    fn test_invalid_character() {
+        let source = "3 + 4 @".to_string();
+        let mut scanner = Scanner::new(source);
+        let tokens = scanner.scan();
+
+        assert_eq!(
+            tokens,
+            vec![Token::Number(3.0), Token::Plus, Token::Number(4.0)]
+        );
+        assert_eq!(scanner.has_error, true);
+        assert_eq!(scanner.errors, vec![String::from("Invalid char")]);
+    }
+
+    #[test]
+    fn test_trailing_space() {
+        let source = "7 * 8 ".to_string();
+        let mut scanner = Scanner::new(source);
+        let tokens = scanner.scan();
+
+        assert_eq!(
+            tokens,
+            vec![Token::Number(7.0), Token::Multiply, Token::Number(8.0)]
+        );
+        assert_eq!(scanner.has_error, false);
+        assert!(scanner.errors.is_empty());
+    }
+
+    #[test]
+    fn test_incomplete_decimal() {
+        let source = "3. + 4".to_string();
+        let mut scanner = Scanner::new(source);
+        let tokens = scanner.scan();
+
+        // This should still parse "3." as 3.0 and continue with the rest
+        assert_eq!(
+            tokens,
+            vec![Token::Number(3.0), Token::Plus, Token::Number(4.0)]
+        );
+        assert_eq!(scanner.has_error, false);
+        assert!(scanner.errors.is_empty());
     }
 }
