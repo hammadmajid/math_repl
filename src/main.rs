@@ -17,7 +17,13 @@ fn main() {
 
     let tokens = scanner.scan();
 
-    for token in tokens {
-        println!("{:?}", token);
+    if scanner.has_error {
+        for err in scanner.errors {
+            eprintln!("{err}");
+        }
+    } else {
+        for token in tokens {
+            println!("{:?}", token);
+        }
     }
 }

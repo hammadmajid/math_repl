@@ -1,8 +1,8 @@
 pub struct Scanner {
     chars: Vec<char>,
     char_idx: usize,
-    has_error: bool,
-    errors: Vec<String>,
+    pub(crate) has_error: bool,
+    pub(crate) errors: Vec<String>,
 }
 
 #[derive(Debug)]
