@@ -1,3 +1,4 @@
+mod scanner;
 use std::env;
 
 fn main() {
@@ -12,7 +13,11 @@ fn main() {
         return;
     }
 
-    for ch in args[1].chars() {
-        println!("{ch}");
+    let mut scanner = scanner::Scanner::new(args[1].clone());
+
+    let tokens = scanner.scan();
+
+    for token in tokens {
+        println!("{:?}", token);
     }
 }
