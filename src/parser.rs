@@ -32,8 +32,78 @@ impl Parser {
     }
 
     pub fn parse(&mut self) -> Vec<Token> {
+        let mut tokens: Vec<Token> = vec![];
+        let mut operators: Vec<Token> = vec![];
+
+        while let Some(token) = self.peek() {
+            match token {
+                Token::Number(number) => {
+                    tokens.push(Token::Number(*number));
+                    self.consume();
+                }
+                Token::LeftParen => {
+                    operators.push(Token::LeftParen);
+                    self.consume();
+                }
+                Token::RightParen => {
+                    // FIXME
+                    while let Some(last) = operators.last() {
+                        if *last == Token::LeftParen {
+                            operators.pop();
+                            self.consume();
+                            break;
+                        } else {
+                            tokens.push(operators.pop().unwrap());
+                            self.consume();
+                        }
+                    }
+
+                    if operators.last().is_none() || operators.last() != Some(&Token::LeftParen) {
+                        self.has_error = true;
+                        self.errors.push("Mismatched parentheses".to_string());
+                    }
+                }
+                Token::Plus | Token::Minus | Token::Divide | Token::Multiply => loop {
+                    let current = self.peek().unwrap();
+                    let last = operators.last();
+                    match last {
+                        Some(last) => {
+                            if last.precedence() >= current.precedence() {
+                                tokens.push(operators.pop().unwrap());
+                                operators.push(*current);
+                                self.consume();
+                            } else {
+                                operators.push(*current);
+                                self.consume();
+                                break;
+                            }
+                        }
+                        None => {
+                            operators.push(*current);
+                            self.consume();
+                            break;
+                        }
+                    }
+                },
+            }
+        }
+
+        while !operators.is_empty() {
+            tokens.push(operators.pop().unwrap());
+        }
+
+        tokens
     }
+
+    fn consume(&mut self) {
+        self.read_idx += 1;
     }
+
+    fn peek(&self) -> Option<&Token> {
+        self.tokens.get(self.read_idx)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
