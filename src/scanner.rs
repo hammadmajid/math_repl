@@ -66,6 +66,7 @@ impl Scanner {
                 _ => {
                     self.has_error = true;
                     self.errors.push(String::from("Invalid char"));
+                    self.consume();
                 }
             }
         }
