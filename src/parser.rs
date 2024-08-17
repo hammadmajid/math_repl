@@ -7,6 +7,20 @@ pub struct Parser {
     pub(crate) errors: Vec<String>,
 }
 
+trait Precedence {
+    fn precedence(&self) -> u8;
+}
+
+impl Precedence for Token {
+    fn precedence(&self) -> u8 {
+        match self {
+            Token::Plus | Token::Minus => 1,
+            Token::Divide | Token::Multiply => 2,
+            _ => 0,
+        }
+    }
+}
+
 impl Parser {
     pub fn new(tokens: Vec<Token>) -> Parser {
         Parser {
