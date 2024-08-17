@@ -1,19 +1,16 @@
+use clap::Parser;
+
 mod scanner;
-use std::env;
+
+#[derive(Parser)]
+#[command(version, about, long_about = None)]
+struct Cli {
+    expression: String,
+}
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
-
-    if args.len() != 2 {
-        panic!("Expected exactly two arguments found {}", args.len());
-    }
-
-    if args[1] == "--help" {
-        println!("Usage:\n\tmath_repl \"EXPRESSION\"");
-        return;
-    }
-
-    let mut scanner = scanner::Scanner::new(args[1].clone());
+    let cli = Cli::parse();
+    let mut scanner = scanner::Scanner::new(cli.expression);
 
     let tokens = scanner.scan();
 
