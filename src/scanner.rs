@@ -30,10 +30,6 @@ impl Scanner {
         let mut tokens: Vec<Token> = vec![];
 
         while let Some(ch) = self.peek() {
-            if self.peek_next().is_none() {
-                break;
-            }
-
             match ch {
                 ' ' | '\0' => self.consume(),
                 '0'..'9' => {
@@ -81,11 +77,13 @@ impl Scanner {
     fn consume_number(&mut self, tokens: &mut Vec<Token>) {
         let mut buffer = String::new();
 
+        // Consume the current digit
         if let Some(c) = self.peek() {
             buffer.push(*c);
             self.consume();
         }
 
+        // Consume all next digits
         while self.peek().map_or(false, |c| c.is_ascii_digit()) {
             if let Some(c) = self.peek() {
                 buffer.push(*c);
@@ -95,7 +93,6 @@ impl Scanner {
 
         // Check for a decimal point
         if self.peek() == Some(&'.') {
-            // Ensure the dot is not the last character
             if self.peek_next().map_or(false, |c| c.is_ascii_digit()) {
                 buffer.push(*self.peek().unwrap());
                 self.consume();
@@ -104,6 +101,9 @@ impl Scanner {
                     buffer.push(*self.peek().unwrap());
                     self.consume();
                 }
+            } else {
+                // Ignore leading decimal
+                self.consume();
             }
         }
 
