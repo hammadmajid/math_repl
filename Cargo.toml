@@ -1,5 +1,6 @@
 [package]
 name = "math_repl"
+description = "An interactive repl for basic math."
 version = "0.1.0"
 edition = "2021"
 
