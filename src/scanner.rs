@@ -31,7 +31,7 @@ impl Scanner {
 
         while let Some(ch) = self.peek() {
             match ch {
-                ' ' | '\0' => self.consume(),
+                ' ' | '\0' | '\n' => self.consume(),
                 '0'..'9' => {
                     self.consume_number(&mut tokens);
                 }

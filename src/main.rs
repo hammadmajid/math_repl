@@ -1,5 +1,8 @@
 use clap::Parser;
-use std::process::exit;
+use std::{
+    io::{stdin, Write},
+    process::exit,
+};
 
 mod parser;
 mod scanner;
@@ -7,12 +10,20 @@ mod scanner;
 #[derive(Parser)]
 #[command(version, about, long_about = None)]
 struct Cli {
-    expression: String,
+    expression: Option<String>,
 }
 
 fn main() {
     let cli = Cli::parse();
-    let mut scanner = scanner::Scanner::new(cli.expression);
+
+    match cli.expression {
+        Some(expression) => evaluate(expression),
+        None => repl(),
+    }
+}
+
+fn evaluate(expression: String) {
+    let mut scanner = scanner::Scanner::new(expression);
 
     let tokens = scanner.scan();
 
@@ -36,5 +47,21 @@ fn main() {
 
     for token in parsed {
         println!("{:?}", token);
+    }
+}
+
+fn repl() -> ! {
+    loop {
+        print!("= ");
+        std::io::stdout().flush().unwrap();
+
+        let mut line = String::new();
+        match stdin().read_line(&mut line) {
+            Ok(_) => evaluate(line),
+            Err(err) => {
+                eprintln!("{}", err);
+                exit(65)
+            }
+        }
     }
 }
